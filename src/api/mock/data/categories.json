@@ -1,0 +1,14 @@
+[
+  {
+    "key": 1,
+    "name": "Essen"
+  },
+  {
+    "key": 2,
+    "name": "Getränke"
+  },
+  {
+    "key": 3,
+    "name": "Sonstiges"
+  }
+]

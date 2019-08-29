@@ -1,28 +1,197 @@
+<i18n src="@/lang/common.json"></i18n>
+<i18n>
+{
+  "en": {
+    "nav": {
+      "settings": "Settings",
+      "purchases": "Purchases"
+    }
+  }
+}
+</i18n>
+
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <toast-view></toast-view>
+
+    <div class="w3-row w3-theme w3-display-container">
+        <div class="w3-half st-heading">
+            <h2 class="w3-left-align">Shoptrac</h2>
+        </div>
+        <div class="w3-half st-menu">
+          <router-link
+              v-if="$route.path === '/'"
+              to="/settings"
+              class="w3-button w3-theme-dark st-display-right"
+            >
+            {{ $t('nav.settings') }}
+          </router-link>
+          <router-link
+              v-if="$route.path === '/settings'"
+              to="/"
+              class="w3-button w3-theme-dark st-display-right">
+            {{ $t('nav.purchases') }}
+          </router-link>
+        </div>
+    </div>
+
+    <router-view/>
+    <div class="w3-row w3-padding w3-theme w3-display-container">
+        <div class="w3-third">
+            &nbsp;
+        </div>
+        <div class="w3-third st-copyright">
+            <p class="w3-display-center">Copyright &copy; 2018 shoptrac contributors</p>
+        </div>
+        <div class="w3-third w3-right-align st-display-right">
+            <a href="https://github.com/mandrakey/shoptrac" target="_blank">
+                <img src="@/assets/img/github.png" alt="Find shoptrac on Github">
+            </a>
+            <a href="https://twitter.com/shoptracapp" target="_blank">
+                <img src="@/assets/img/twitter.png" alt="Find shoptrac on Twitter">
+            </a>
+        </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Api from 'api'
+import Console from '@/utils/Console'
+import EventBus from '@/utils/EventBus'
+
+import Venue from '@/model/Venue'
+import Category from '@/model/Category'
+
+import ToastView from '@/components/ToastView'
+
+import store from '@/store'
+
+window.toast = function (message) {
+  EventBus.$emit('toast', { message: message })
+}
 
 export default {
   name: 'app',
+
   components: {
-    HelloWorld
+    ToastView
+  },
+
+  created () {
+    this.loadVenues()
+    this.loadCategories()
+  },
+
+  mounted () {
+  },
+
+  methods: {
+    loadVenues () {
+      // var self = this
+
+      Api.getVenues()
+        .then(resp => {
+          if (typeof resp.status !== 'number' || resp.status !== 200) {
+            // window.message(self.$i18n.t('errors.invalidApiResponse'), 'red', 2500)
+            Console.error(`Invalid API response: ${JSON.stringify(resp)}`)
+            return
+          }
+
+          try {
+            var venues = {}
+            resp.data.forEach(e => {
+              var v = Venue.fromObject(e)
+              venues[v.key] = v
+            })
+
+            store.commit('venues', venues)
+            EventBus.$emit('venues-loaded')
+          } catch (err) {
+            // window.message(self.$i18n.t('errors.invalidApiResponse'), 'red', 2500)
+            Console.error(`Invalid API response: ${err}`)
+          }
+        })
+        .catch(err => {
+          //window.message(self.$i18n.t('errors.apiCommunication', [err]), 'red', 2500)
+          Console.error(`API communication: ${err}`)
+        })
+    },
+
+    loadCategories () {
+      // var self = this
+
+      Api.getCategories()
+        .then(resp => {
+          if (typeof resp.status !== 'number' || resp.status !== 200) {
+            // window.message(self.$i18n.t('errors.invalidApiResponse'), 'red', 2500)
+            Console.error(`Invalid API response: ${JSON.stringify(resp)}`)
+            return
+          }
+
+          try {
+            var categories = {}
+            resp.data.forEach(e => {
+              var c = Category.fromObject(e)
+              categories[c.key] = c
+            })
+
+            store.commit('categories', categories)
+            EventBus.$emit('categories-loaded')
+          } catch (err) {
+            // window.message(self.$i18n.t('errors.invalidApiResponse'), 'red', 2500)
+            Console.error(`Invalid API response: ${err}`)
+          }
+        })
+        .catch(err => {
+          // window.message(self.$i18n.t('errors.apiCommunication', [err]), 'red', 2500)
+          Console.log(`API communication: ${err}`)
+        })
+    }
   }
 }
 </script>
 
 <style>
+body {
+    margin: 0;
+    padding: 0;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'DejaVu Sans', Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.st-heading {
+    padding-left: 20px;
+    height: 70px;
+}
+.st-menu {
+    padding-right: 20px;
+}
+.st-display-right {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translate(0%, -50%);
+}
+.st-display-left {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translate(0%, -50%);
+}
+.st-copyright {
+    font-size: .8em;
+}
+.message-panel {
+  padding: 15px;
+}
+.message-panel p {
+  margin: 0;
+}
+.message-panel .close-button {
+  float: right;
 }
 </style>

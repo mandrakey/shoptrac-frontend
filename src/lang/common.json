@@ -1,0 +1,42 @@
+{
+  "en": {
+    "settings": "Settings",
+    "loading": "Loading",
+    "edit": "Edit",
+    "delete": "Delete",
+    "currencySymbol": "EUR",
+
+    "category": "Category",
+    "venue": "Venue",
+    "date": "Date",
+
+    "YYYY-MM-DD": "YYYY-MM-DD",
+
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+
+    "buttonlabels": {
+      "save": "Save",
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
+
+    "errors": {
+      "apiCommunication": "Error while communicating with the API",
+      "invalidApiResponse": "Invalid API response",
+      "responseStatusNotANumber": "API response status value is not a number."
+    }
+  }
+}
