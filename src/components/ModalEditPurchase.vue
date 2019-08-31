@@ -92,6 +92,7 @@
 <script>
 import moment from 'moment'
 import Api from 'api'
+import Console from '@/utils/Console'
 
 import Purchase from '@/model/Purchase'
 
