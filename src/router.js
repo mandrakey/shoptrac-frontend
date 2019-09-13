@@ -10,6 +10,13 @@ const routes = [
     meta: {
       requireLogin: true
     }
+  },
+  {
+    path: '/settings',
+    component: () => import('@/views/Settings'),
+    meta: {
+      requireLogin: true
+    }
   }
 ]
 

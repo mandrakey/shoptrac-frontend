@@ -57,6 +57,10 @@ export default class Api {
     return this.fetch({ status: 200, data: venuesList })
   }
 
+  static deleteVenue () {
+    return this.fetch({ status: 200, data: null }, 800)
+  }
+
   static getCategories () {
     return this.fetch({ status: 200, data: categoriesList })
   }
