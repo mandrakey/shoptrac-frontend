@@ -5,7 +5,8 @@
         "settings": "Settings",
         "settingsDescription": "Here you can edit categories and venues.",
         "venues": "Venues",
-        "noVenuesFound": "No venues found."
+        "noVenuesFound": "No venues found.",
+        "addVenue": "Add venue"
     }
 }
 </i18n>
@@ -14,6 +15,8 @@
     <div class="w3-row w3-padding">
         <modal-delete-venue ref="ModalDeleteVenue"
                 @deleted="finishDeleteVenue($event)"></modal-delete-venue>
+        <modal-edit-venue ref="ModalEditVenue"
+                @update="finishEditVenue($event)" @add="finishAddVenue($event)"></modal-edit-venue>
 
         <h2>{{ $t('settings') }}</h2>
         <p>{{ $t('settingsDescription') }}</p>
@@ -23,7 +26,10 @@
             <div class="background-primary-0 w3-padding w3-display-container">
                 {{ venues.length }} {{ $t('venues') }}
                 <div class="w3-display-topright" style="padding-top: 4px; padding-right: 4px;">
-                    <button class="w3-button w3-round w3-tiny background-primary-4 hover-primary-4">Add venue</button>
+                    <button class="w3-button w3-round w3-tiny background-primary-4 hover-primary-4"
+                            @click="beginAddVenue()">
+                        <strong>{{ $t('addVenue') }}</strong>
+                    </button>
                 </div>
             </div>
             
@@ -60,11 +66,13 @@ import Console from '@/utils/Console'
 import Venue from '@/model/Venue'
 
 import ModalDeleteVenue from '@/components/settings/ModalDeleteVenue'
+import ModalEditVenue from '@/components/settings/ModalEditVenue'
 import VenueListItem from '@/components/VenueListItem'
 
 export default {
     components: {
         ModalDeleteVenue,
+        ModalEditVenue,
         VenueListItem
     },
 
@@ -136,8 +144,44 @@ export default {
             }
         },
 
+        beginAddVenue () {
+            var modal = this.$refs['ModalEditVenue']
+            modal.show('add', null)
+        },
+
+        finishAddVenue (event) {
+            if (!(event.venue instanceof Venue)) {
+                return
+            }
+
+            this.venues.push(event.venue)
+        },
+
         beginEditVenue () {
-            
+            for (var i in this.venues) {
+                var venue = this.venues[i]
+                if (venue.key === this.selectedVenue) {
+                    var modal = this.$refs['ModalEditVenue']
+                    modal.show('edit', venue)
+                }
+            }
+        },
+
+        finishEditVenue (event) {
+            if (typeof event.venue !== 'object') {
+                return
+            }
+
+            var venue = event.venue
+            for (var i in this.venues) {
+                var v = this.venues[i]
+                if (v.key === venue.key) {
+                    // Update!
+                    v.name = venue.name
+                    v.image = venue.image
+                    return
+                }
+            }
         },
 
         beginDeleteVenue (venue) {

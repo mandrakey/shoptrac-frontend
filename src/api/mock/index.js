@@ -61,6 +61,15 @@ export default class Api {
     return this.fetch({ status: 200, data: null }, 800)
   }
 
+  static updateVenue () {
+    return this.fetch({ status: 200, data: null }, 800)
+  }
+
+  static addVenue (venue) {
+    venue.key = 99
+    return this.fetch({ status: 200, data: { venue: venue } }, 800)
+  }
+
   static getCategories () {
     return this.fetch({ status: 200, data: categoriesList })
   }

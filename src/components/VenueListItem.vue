@@ -12,7 +12,7 @@
     <div :class="['w3-row', 'venue-container', { 'w3-theme-l1': selected }]"
             @click="$emit('click', { venue: venue })">
         <div :class="['w3-col', 'l2 m2']">
-            <img v-if="venue.image !== ''" :src="`data:image/png;base64,${venue.image}`">
+            <img v-if="venue.image !== ''" :src="`data:image/png;base64,${venue.image}`" class="venue-image">
             <span v-else>NOIMG</span>
         </div>
         <div :class="['w3-col', selected ? 'l8 m8' : 'l10 m10', 'venue-name']">
@@ -40,6 +40,11 @@
 
 .venue-name {
     padding-top: 15px;
+}
+
+.venue-image {
+    width: 48px;
+    height: 48px;
 }
 
 .action-buttons {
