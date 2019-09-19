@@ -6,7 +6,11 @@
         "settingsDescription": "Here you can edit categories and venues.",
         "venues": "Venues",
         "noVenuesFound": "No venues found.",
-        "addVenue": "Add venue"
+        "addVenue": "Add venue",
+
+        "categories": "Categories",
+        "noCategoriesFound": "No categories found.",
+        "addCategory": "Add category"
     }
 }
 </i18n>
@@ -17,6 +21,10 @@
                 @deleted="finishDeleteVenue($event)"></modal-delete-venue>
         <modal-edit-venue ref="ModalEditVenue"
                 @update="finishEditVenue($event)" @add="finishAddVenue($event)"></modal-edit-venue>
+        <modal-delete-category ref="ModalDeleteCategory"
+                @deleted="finishDeleteCategory($event)"></modal-delete-category>
+        <modal-edit-category ref="ModalEditCategory"
+                @update="finishEditCategory($event)" @add="finishAddCategory($event)"></modal-edit-category>
 
         <h2>{{ $t('settings') }}</h2>
         <p>{{ $t('settingsDescription') }}</p>
@@ -48,11 +56,47 @@
                 </div>
             </div>
         </div>
+
+        <!-- List of categories -->
+        <br>
+        <div class="w3-border">
+            <div class="background-primary-0 w3-padding w3-display-container">
+                {{ categories.length }} {{ $t('categories') }}
+                <div class="w3-display-topright" style="padding-top: 4px; padding-right: 4px;">
+                    <button class="w3-button w3-round w3-tiny background-primary-4 hover-primary-4"
+                            @click="beginAddCategory()">
+                        <strong>{{ $t('addCategory') }}</strong>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <div v-show="loadingCategories" class="w3-center">
+                    <img src="@/assets/img/spinner-48-primary.gif" alt="Loading categories ...">
+                </div>
+
+                <div v-show="!loadingCategories" id="categoryItemsContainer">
+                    <p v-show="categories.length === 0" class="w3-padding">{{ $t('noCategoriesFound') }}</p>
+                    <category-list-item v-for="c in categories" :key="c.key"
+                            :category="c" :selected="selectedCategory === c.key"
+                            @click="category_Click($event)"
+                            @edit="beginEditCategory(c)"
+                            @delete="beginDeleteCategory(c)">
+                    </category-list-item>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <style scoped>
 #venueItemsContainer {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #333;
+}
+
+#categoryItemsContainer {
     max-height: 500px;
     overflow-y: auto;
     border: 1px solid #333;
@@ -64,34 +108,49 @@ import Api from 'api'
 import Console from '@/utils/Console'
 
 import Venue from '@/model/Venue'
+import Category from '@/model/Category'
 
 import ModalDeleteVenue from '@/components/settings/ModalDeleteVenue'
 import ModalEditVenue from '@/components/settings/ModalEditVenue'
 import VenueListItem from '@/components/VenueListItem'
+import ModalDeleteCategory from '@/components/settings/ModalDeleteCategory'
+import ModalEditCategory from '@/components/settings/ModalEditCategory'
+import CategoryListItem from '@/components/CategoryListItem'
 
 export default {
     components: {
         ModalDeleteVenue,
         ModalEditVenue,
-        VenueListItem
+        VenueListItem,
+        ModalDeleteCategory,
+        ModalEditCategory,
+        CategoryListItem
     },
 
     data () {
         return {
             loadingVenues: false,
             venues: [],
-            selectedVenue: null
+            selectedVenue: null,
+
+            loadingCategories: false,
+            categories: [],
+            selectedCategory: null
         }
     },
 
     mounted () {
         this.loadVenues()
+        this.loadCategories()
     },
 
     destroyed () {
     },
 
     methods: {
+        // ====
+        // Venue methods
+
         loadVenues () {
             var self = this
 
@@ -163,6 +222,7 @@ export default {
                 if (venue.key === this.selectedVenue) {
                     var modal = this.$refs['ModalEditVenue']
                     modal.show('edit', venue)
+                    return
                 }
             }
         },
@@ -197,6 +257,113 @@ export default {
             this.venues = this.venues.filter(v => v.key !== venue.key)
             if (this.selectedVenue === venue.key) {
                 this.selectedVenue = null
+            }
+        },
+
+        // ====
+        // Category methods
+
+        loadCategories () {
+            var self = this
+
+            self.loadingCategories = true
+            Api.getCategories()
+                .then(resp => {
+                    if (typeof resp.status !== 'number') {
+                        window.toast({
+                            text: self.$i18n.t('errors.invalidApiResponse'),
+                            color: 'red'
+                        })
+                        return
+                    }
+
+                    if (resp.status !== 200) {
+                        window.toast({
+                            text: self.$i18n.t('loadingCategoriesFailed'),
+                            color: 'red'
+                        })
+                        return
+                    }
+
+                    if (!(resp.data instanceof Array)) {
+                        window.toast({
+                            text: self.$i18n.t('errors.invalidApiResponse'),
+                            color: 'red'
+                        })
+                        return
+                    }
+
+                    // Categories loaded
+                    self.categories = resp.data.map(row => Category.fromObject(row))
+                })
+                .catch(err => {
+                    window.toast({
+                        text: self.$i18n.t('loadingCategoriesFailed'),
+                        color: 'red'
+                    })
+                    Console.error(`Failed yo load categories: ${JSON.stringify(err)}`)
+                })
+                .finally(() => self.loadingCategories = false)
+        },
+
+        category_Click (event) {
+            if (event.category instanceof Category) {
+                var key = event.category.key
+
+                this.selectedCategory = this.selectedCategory === key ? null : key
+            }
+        },
+
+        beginAddCategory () {
+            this.$refs['ModalEditCategory'].show('add', null)
+        },
+
+        finishAddCategory (event) {
+            if (!(event.category instanceof Category)) {
+                return
+            }
+
+            this.categories.push(event.category)
+        },
+
+        beginEditCategory () {
+            for (var i in this.categories) {
+                var c = this.categories[i]
+                if (c.key === this.selectedCategory) {
+                    this.$refs['ModalEditCategory'].show('edit', c)
+                    return
+                }
+            }
+        },
+
+        finishEditCategory (event) {
+            if (typeof event.category !== 'object') {
+                return
+            }
+
+            var category = event.category
+            for (var i in this.categories) {
+                var c = this.categories[i]
+                if (c.key === category.key) {
+                    c.name = category.name
+                    return
+                }
+            }
+        },
+
+        beginDeleteCategory (category) {
+            this.$refs['ModalDeleteCategory'].show(category)
+        },
+
+        finishDeleteCategory (event) {
+            if (!(event.category instanceof Category)) {
+                return
+            }
+
+            var category = event.category
+            this.categories = this.categories.filter(c => c.key !== category.key)
+            if (this.selectedCategory === category.key) {
+                this.selectedCategory = null
             }
         }
     }

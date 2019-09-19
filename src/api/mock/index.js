@@ -73,4 +73,17 @@ export default class Api {
   static getCategories () {
     return this.fetch({ status: 200, data: categoriesList })
   }
+
+  static deleteCategory () {
+    return this.fetch({ status: 200, data: null }, 800)
+  }
+
+  static updateCategory () {
+    return this.fetch({ status: 200, data: null }, 800)
+  }
+
+  static addCategory (category) {
+    category.key = 99
+    return this.fetch({ status: 200, data: { category: category } }, 800)
+  }
 }
