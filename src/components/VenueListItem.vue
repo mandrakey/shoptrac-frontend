@@ -49,6 +49,7 @@
 
 .action-buttons {
     padding-top: 5px;
+    text-align: right;
 }
 
 .action-buttons button {
