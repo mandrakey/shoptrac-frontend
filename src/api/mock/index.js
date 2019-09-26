@@ -19,10 +19,6 @@ export default class Api {
     })
   }
 
-  static isAuthError () {
-    return false
-  }
-
   static performLogout (vm) {
     store.commit('user', null)
     vm.$router.push('/')
