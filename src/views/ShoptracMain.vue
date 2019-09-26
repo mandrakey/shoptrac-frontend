@@ -193,13 +193,13 @@ export default {
         },
 
         changeCurrentVenue (event) {
-            if (typeof event.venue === 'number') {
+            if (typeof event.venue === 'string') {
                 this.currentVenue = event.venue
             }
         },
 
         changeCurrentCategory (event) {
-            if (typeof event.category === 'number') {
+            if (typeof event.category === 'string') {
                 this.currentCategory = event.category
             }
         },

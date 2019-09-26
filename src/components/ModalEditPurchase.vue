@@ -162,17 +162,9 @@ export default {
             var self = this
 
             self.action = `${self.$i18n.t('savingPurchase')} ...`
+            console.log(self.purchase)
             Api.updatePurchase(this.purchase)
                 .then(resp => {
-                    if (typeof resp.status !== 'number') {
-                        Console.error(`Invalid API response: ${JSON.stringify(resp)}`)
-                        window.toast({
-                            color: 'red',
-                            text: self.$i18n.t('errors.invalidApiResponse')
-                        })
-                        return
-                    }
-
                     switch (resp.status) {
                         case 200:
                             window.toast({
@@ -209,13 +201,13 @@ export default {
         },
 
         changeCategory (event) {
-            if (typeof event.category === 'number') {
+            if (typeof event.category === 'string') {
                 this.purchase.category = event.category
             }
         },
 
         changeVenue (event) {
-            if (typeof event.venue === 'number') {
+            if (typeof event.venue === 'string') {
                 this.purchase.venue = event.venue
             }
         },
@@ -224,7 +216,7 @@ export default {
             if (typeof event.sum !== 'undefined') {
                 var sum = parseFloat(event.sum)
                 if (sum >= 0) {
-                    this.purchase.sum = sum
+                    this.purchase.sum = event.sum
                 }
             }
         }

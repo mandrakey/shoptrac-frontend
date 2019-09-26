@@ -1,12 +1,12 @@
 export default class Purchase {
   constructor () {
     this._key = ''
-    this.category = -1
-    this.venue = -1
+    this.category = ''
+    this.venue = ''
     this.date = ''
     this.month = -1
     this.year = -1
-    this.sum = 0.0
+    this.sum = '0'
   }
 
   static fromObject (o) {
@@ -15,10 +15,10 @@ export default class Purchase {
     if (typeof o._key !== 'string' || o._key === '') {
       problems.push('key')
     }
-    if (typeof o.category !== 'number' || o.category < 0) {
+    if (typeof o.category !== 'string' || o.category === '') {
       problems.push('category')
     }
-    if (typeof o.venue !== 'number' || o.venue < 0) {
+    if (typeof o.venue !== 'string' || o.venue === '') {
       problems.push('venue')
     }
     if (typeof o.date !== 'string' || o.datetime === '') {
@@ -39,7 +39,6 @@ export default class Purchase {
     }
     
     // Copy possible values
-    console.log(o)
     var res = new Purchase()
     Object.keys(o).forEach(k => {
       if (typeof o[k] !== 'undefined') {
