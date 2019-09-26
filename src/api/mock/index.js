@@ -49,7 +49,7 @@ export default class Api {
   }
 
   static addPurchase (purchase) {
-    purchase.key = `${new Date().getTime()}`
+    purchase._key = `${new Date().getTime()}`
     return this.fetch({ status: 200, data: purchase }, 800)
   }
 
@@ -66,7 +66,7 @@ export default class Api {
   }
 
   static addVenue (venue) {
-    venue.key = 99
+    venue._key = 99
     return this.fetch({ status: 200, data: { venue: venue } }, 800)
   }
 
@@ -83,7 +83,7 @@ export default class Api {
   }
 
   static addCategory (category) {
-    category.key = 99
+    category._key = 99
     return this.fetch({ status: 200, data: { category: category } }, 800)
   }
 }

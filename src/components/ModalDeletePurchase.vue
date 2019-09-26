@@ -116,7 +116,7 @@ export default {
                     switch (resp.status) {
                         case 404:
                             // window.message(self.$i18n.t('errors.failedToDeletePurchase'), 'red', 2500)
-                            Console.error(`The selected purchase with key '${self.purchase.key}' was not found.`)
+                            Console.error(`The selected purchase with key '${self.purchase._key}' was not found.`)
                             return
 
                         case 200:

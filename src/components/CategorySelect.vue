@@ -9,7 +9,7 @@
             {{ selected.name }}
         </button>
         <div :class="['w3-dropdown-content', 'w3-bar-block', 'w3-border', { 'w3-show': showDropdown }]">
-            <span v-for="c in categories" :key="c.key">
+            <span v-for="c in categories" :key="c._key">
                 <a class="w3-button w3-bar-item" @click="select(c)">
                     {{ c.name }}
                 </a>
@@ -63,9 +63,9 @@ export default {
 
     methods: {
         select (category) {
-            if (typeof this.categories[category.key] === 'object') {
-                this.selected = this.categories[category.key]
-                this.$emit('selected', { category: this.selected.key })
+            if (typeof this.categories[category._key] === 'object') {
+                this.selected = this.categories[category._key]
+                this.$emit('selected', { category: this.selected._key })
                 this.toggleDropdown()
             }
         },
@@ -77,14 +77,14 @@ export default {
         },
 
         preselect () {
-            if (this.selected.key > 0) {
+            if (this.selected._key > 0) {
                 return
             }
 
             var keys = Object.keys(this.categories)
             if (keys.length > 0) {
                 this.selected = this.categories[keys[0]]
-                this.$emit('selected', { category: this.selected.key })
+                this.$emit('selected', { category: this.selected._key })
             }
         },
 

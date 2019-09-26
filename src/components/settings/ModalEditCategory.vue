@@ -114,7 +114,7 @@ export default {
         doUpdateCategory () {
             var self = this
 
-            if (typeof self.category.key !== 'number' || self.category.key < 0
+            if (typeof self.category._key !== 'string' || self.category._key === '' 
                     || self.category.name === '') {
                 window.toast({
                     text: self.$i18n.t('errors.failedToSaveCategory'),

@@ -7,9 +7,9 @@
         </div>
         <div id="purchaseItemsContainer" v-show="!loading">
             <purchase-item v-for="p in purchasesList"
-                :key="p.key"
+                :key="p._key"
                 :purchase="p"
-                :selected="selectedPurchase === p.key"
+                :selected="selectedPurchase === p._key"
                 @click="PurchaseItem_Click($event)">
             </purchase-item>
         </div>
@@ -126,7 +126,7 @@ export default {
 
         PurchaseItem_Click (event) {
             if (typeof event.purchase === 'object') {
-                var key = event.purchase.key
+                var key = event.purchase._key
                 this.selectedPurchase = this.selectedPurchase !== key
                     ? key
                     : null
@@ -136,7 +136,7 @@ export default {
         removePurchase (purchase) {
             var self = this
 
-            self.purchasesList = self.purchasesList.filter(p => purchase.key !== p.key)
+            self.purchasesList = self.purchasesList.filter(p => purchase._key !== p._key)
         },
 
         addPurchase (purchase) {

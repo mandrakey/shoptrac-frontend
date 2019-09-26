@@ -103,7 +103,7 @@ export default {
             var venues = {}
             resp.data.forEach(e => {
               var v = Venue.fromObject(e)
-              venues[v.key] = v
+              venues[v._key] = v
             })
 
             store.commit('venues', venues)
@@ -134,7 +134,7 @@ export default {
             var categories = {}
             resp.data.forEach(e => {
               var c = Category.fromObject(e)
-              categories[c.key] = c
+              categories[c._key] = c
             })
 
             store.commit('categories', categories)

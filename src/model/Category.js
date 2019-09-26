@@ -1,13 +1,13 @@
 export default class Category {
   constructor () {
-    this.key = -1
+    this._key = ''
     this.name = ''
   }
 
   static fromObject (o) {
     // Check necessary data
     var problems = []
-    if (typeof o.key !== 'number' || o.key < 0) {
+    if (typeof o._key !== 'string' || o._key === '') {
       problems.push('key')
     }
     if (typeof o.name !== 'string' || o.name === '') {
@@ -20,7 +20,7 @@ export default class Category {
 
     // Copy possible values
     var res = new Category()
-    Object.keys(res).forEach(k => {
+    Object.keys(o).forEach(k => {
       if (typeof o[k] !== 'undefined') {
         res[k] = o[k]
       }

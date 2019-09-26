@@ -1,6 +1,6 @@
 export default class Venue {
   constructor () {
-    this.key = -1
+    this._key = ''
     this.name = ''
     this.image = ''
   }
@@ -8,7 +8,7 @@ export default class Venue {
   static fromObject (o) {
     // Check necessary data
     var problems = []
-    if (typeof o.key !== 'number' || o.key < 0) {
+    if (typeof o._key !== 'string' || o._key === '') {
       problems.push('key')
     }
     if (typeof o.name !== 'string' || o.name === '') {
@@ -21,7 +21,7 @@ export default class Venue {
 
     // Copy possible values
     var res = new Venue()
-    Object.keys(res).forEach(k => {
+    Object.keys(o).forEach(k => {
       if (typeof o[k] !== 'undefined') {
         res[k] = o[k]
       }

@@ -163,7 +163,7 @@ export default {
         doUpdateVenue () {
             var self = this
 
-            if (typeof self.venue.key !== 'number' || self.venue.key < 0
+            if (typeof self.venue._key !== 'string' || self.venue._key === ''
                     || self.venue.name === '') {
                 window.toast({
                     text: self.$i18n.t('errors.failedToSaveVenue'),

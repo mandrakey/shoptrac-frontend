@@ -48,8 +48,8 @@
 
                 <div v-show="!loadingVenues" id="venueItemsContainer">
                     <p v-show="venues.length === 0" class="w3-padding">{{ $t('noVenuesFound') }}</p>
-                    <venue-list-item v-for="v in venues" :key="v.key"
-                            :venue="v" :selected="selectedVenue === v.key"
+                    <venue-list-item v-for="v in venues" :key="v._key"
+                            :venue="v" :selected="selectedVenue === v._key"
                             @click="venue_Click($event)"
                             @edit="beginEditVenue(v)"
                             @delete="beginDeleteVenue(v)"></venue-list-item>
@@ -77,8 +77,8 @@
 
                 <div v-show="!loadingCategories" id="categoryItemsContainer">
                     <p v-show="categories.length === 0" class="w3-padding">{{ $t('noCategoriesFound') }}</p>
-                    <category-list-item v-for="c in categories" :key="c.key"
-                            :category="c" :selected="selectedCategory === c.key"
+                    <category-list-item v-for="c in categories" :key="c._key"
+                            :category="c" :selected="selectedCategory === c._key"
                             @click="category_Click($event)"
                             @edit="beginEditCategory(c)"
                             @delete="beginDeleteCategory(c)">
@@ -197,7 +197,7 @@ export default {
 
         venue_Click (event) {
             if (typeof event.venue === 'object') {
-                var key = event.venue.key
+                var key = event.venue._key
 
                 this.selectedVenue = this.selectedVenue === key ? null : key
             }
@@ -219,7 +219,7 @@ export default {
         beginEditVenue () {
             for (var i in this.venues) {
                 var venue = this.venues[i]
-                if (venue.key === this.selectedVenue) {
+                if (venue._key === this.selectedVenue) {
                     var modal = this.$refs['ModalEditVenue']
                     modal.show('edit', venue)
                     return
@@ -235,7 +235,7 @@ export default {
             var venue = event.venue
             for (var i in this.venues) {
                 var v = this.venues[i]
-                if (v.key === venue.key) {
+                if (v._key === venue._key) {
                     // Update!
                     v.name = venue.name
                     v.image = venue.image
@@ -254,8 +254,8 @@ export default {
             }
 
             var venue = event.venue
-            this.venues = this.venues.filter(v => v.key !== venue.key)
-            if (this.selectedVenue === venue.key) {
+            this.venues = this.venues.filter(v => v._key !== venue._key)
+            if (this.selectedVenue === venue._key) {
                 this.selectedVenue = null
             }
         },
@@ -308,7 +308,7 @@ export default {
 
         category_Click (event) {
             if (event.category instanceof Category) {
-                var key = event.category.key
+                var key = event.category._key
 
                 this.selectedCategory = this.selectedCategory === key ? null : key
             }
@@ -329,7 +329,7 @@ export default {
         beginEditCategory () {
             for (var i in this.categories) {
                 var c = this.categories[i]
-                if (c.key === this.selectedCategory) {
+                if (c._key === this.selectedCategory) {
                     this.$refs['ModalEditCategory'].show('edit', c)
                     return
                 }
@@ -344,7 +344,7 @@ export default {
             var category = event.category
             for (var i in this.categories) {
                 var c = this.categories[i]
-                if (c.key === category.key) {
+                if (c._key === category._key) {
                     c.name = category.name
                     return
                 }
@@ -361,8 +361,8 @@ export default {
             }
 
             var category = event.category
-            this.categories = this.categories.filter(c => c.key !== category.key)
-            if (this.selectedCategory === category.key) {
+            this.categories = this.categories.filter(c => c._key !== category._key)
+            if (this.selectedCategory === category._key) {
                 this.selectedCategory = null
             }
         }

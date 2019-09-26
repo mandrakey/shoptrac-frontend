@@ -9,7 +9,7 @@
             {{ selected.name }}
         </button>
         <div :class="['w3-dropdown-content', 'w3-bar-block', 'w3-border', { 'w3-show': showDropdown }]">
-            <span v-for="v in venues" :key="v.key">
+            <span v-for="v in venues" :key="v._key">
                 <a class="w3-button w3-bar-item" @click="select(v)">
                     <img v-if="typeof v.image !== 'undefined' && v.image !== ''"
                             :src="`data:image/png;base64,${v.image}`"
@@ -66,9 +66,9 @@ export default {
 
     methods: {
         select (venue) {
-            if (typeof this.venues[venue.key] === 'object') {
-                this.selected = this.venues[venue.key]
-                this.$emit('selected', { venue: this.selected.key })
+            if (typeof this.venues[venue._key] === 'object') {
+                this.selected = this.venues[venue._key]
+                this.$emit('selected', { venue: this.selected._key })
                 this.toggleDropdown()
             }
         },
@@ -80,14 +80,14 @@ export default {
         },
 
         preselect () {
-            if (this.selected.key > 0) {
+            if (this.selected._key > 0) {
                 return
             }
 
             var keys = Object.keys(this.venues)
             if (keys.length > 0) {
                 this.selected = this.venues[keys[0]]
-                this.$emit('selected', { venue: this.selected.key })
+                this.$emit('selected', { venue: this.selected._key })
             }
         },
 
