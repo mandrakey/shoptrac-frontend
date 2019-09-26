@@ -175,14 +175,6 @@ export default {
             self.action = self.$i18n.t('savingVenueData')
             Api.updateVenue(self.venue)
                 .then(resp => {
-                    if (typeof resp.status !== 'number') {
-                        window.toast({
-                            text: self.$i18n.t('errors.invalidApiResponse'),
-                            color: 'red'
-                        })
-                        return
-                    }
-
                     if (resp.status !== 200) {
                         window.toast({
                             text: self.$i18n.t('errors.failedToSaveVenue'),
@@ -222,14 +214,6 @@ export default {
             self.action = self.$i18n.t('savingVenueData')
             Api.addVenue(self.venue)
                 .then(resp => {
-                    if (typeof resp.status !== 'number') {
-                        window.toast({
-                            text: self.$i18n.t('errors.invalidApiResponse'),
-                            color: 'red'
-                        })
-                        return
-                    }
-
                     if (resp.status !== 200) {
                         window.toast({
                             text: self.$i18n.t('errors.failedToSaveVenue'),
@@ -238,7 +222,7 @@ export default {
                         return
                     }
 
-                    if (typeof resp.data.venue !== 'object') {
+                    if (typeof resp.data !== 'object') {
                         window.toast({
                             text: self.$i18n.t('errors.invalidApiResponse'),
                             color: 'red'
@@ -251,7 +235,7 @@ export default {
                         color: 'green'
                     })
                     self.showDialog = false
-                    self.$emit('add', { venue: resp.data.venue })
+                    self.$emit('add', { venue: Venue.fromObject(resp.data) })
                     self.venue = new Venue()
                 })
                 .catch(err => {
