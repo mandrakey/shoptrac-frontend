@@ -69,6 +69,7 @@
 
 <script>
 import Api from 'api'
+import Console from '@/utils/Console'
 
 import Purchase from '@/model/Purchase'
 
