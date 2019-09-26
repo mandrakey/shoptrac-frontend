@@ -84,6 +84,7 @@
 
 <script>
 import Api from 'api'
+import Console from '@/utils/Console'
 
 import Category from '@/model/Category'
 
@@ -126,14 +127,6 @@ export default {
             self.action = self.$i18n.t('savingCategoryData')
             Api.updateCategory(self.category)
                 .then(resp => {
-                    if (typeof resp.status !== 'number') {
-                        window.toast({
-                            text: self.$i18n.t('errors.invalidApiResponse'),
-                            color: 'red'
-                        })
-                        return
-                    }
-
                     if (resp.status !== 200) {
                         window.toast({
                             text: self.$i18n.t('errors.failedToSaveCategory'),
@@ -173,14 +166,6 @@ export default {
             self.action = self.$i18n.t('savingCategoryData')
             Api.addCategory(self.category)
                 .then(resp => {
-                    if (typeof resp.status !== 'number') {
-                        window.toast({
-                            text: self.$i18n.t('errors.invalidApiResponse'),
-                            color: 'red'
-                        })
-                        return
-                    }
-
                     if (resp.status !== 200) {
                         window.toast({
                             text: self.$i18n.t('errors.failedToSaveCategory'),
@@ -189,7 +174,11 @@ export default {
                         return
                     }
 
-                    if (typeof resp.data.category !== 'object') {
+                    var savedCategory = null
+                    try {
+                        savedCategory = Category.fromObject(resp.data)
+                    } catch (err) {
+                        Console.debug(`Invalid response after adding a category: ${err}`)
                         window.toast({
                             text: self.$i18n.t('errors.invalidApiResponse'),
                             color: 'red'
@@ -201,7 +190,7 @@ export default {
                         text: self.$i18n.t('categoryHasBeenSaved'),
                         color: 'green'
                     })
-                    self.$emit('add', { category: resp.data.category })
+                    self.$emit('add', { category: savedCategory })
                     self.reset()
                     self.showDialog = false
                 })
