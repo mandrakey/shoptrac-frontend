@@ -15,12 +15,12 @@
         <modal-edit-purchase ref="modalEditPurchase" @save="modalEditPurchase_Save($event)"></modal-edit-purchase>
         <modal-delete-purchase ref="modalDeletePurchase" @deleted="modalDeletePurchase_Deleted($event)"></modal-delete-purchase>
 
-        <div class="w3-col l9 m8 s12 w3-padding">
+        <div class="w3-col l8 m8 s12 w3-padding">
             <month-selector ref="month-selector" @change="MonthSelector_Change($event)" />
             <purchase-list :month="currentMonth" :year="currentYear" ref="purchase-list"></purchase-list>
         </div>
 
-        <div class="w3-col l3 m4 s12 w3-padding">
+        <div class="w3-col l4 m4 s12 w3-padding">
             <div class="w3-row margin-top-5">
                 <div class="w3-third st-label">{{ $t('venue') }}:</div>
                 <div class="w3-twothird">

@@ -15,7 +15,7 @@
             <img v-if="venueImage !== ''" :src="venueImage">
             <span v-else>&nbsp;</span> <!-- put default image here -->
         </div>
-        <div :class="['w3-col', selected ? 'l8 m6' : 'l10 m10']">
+        <div :class="['w3-col', selected ? 'l7 m6' : 'l9 m10']">
             <div class="w3-row">
                 <div class="w3-col l10 m9 purchase-venue">{{ venueName }}</div>
                 <div class="w3-col l2 m3 purchase-date">{{ purchase.date | dateformat($t('YYYY-MM-DD')) }}</div>
@@ -25,7 +25,7 @@
                 <div class="w3-col l2 m3 purchase-category">{{ categoryName }}</div>
             </div>
         </div>
-        <div v-show="selected" class="w3-col l2 m4 w3-right-align purchase-action-buttons">
+        <div v-show="selected" class="w3-col l3 m4 w3-right-align purchase-action-buttons">
             <button class="w3-button background-primary-0 hover-primary-0 w3-round display-inline-block"
                     @click="edit_Click()">
                 <img src="@/assets/img/pencil16-white.png" :alt="$t('edit')" :title="$t('editThisItem')">
