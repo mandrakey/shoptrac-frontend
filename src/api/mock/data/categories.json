@@ -1,14 +1,14 @@
 [
   {
-    "key": 1,
+    "_key": "1",
     "name": "Essen"
   },
   {
-    "key": 2,
+    "_key": "2",
     "name": "Getränke"
   },
   {
-    "key": 3,
+    "_key": "3",
     "name": "Sonstiges"
   }
 ]
