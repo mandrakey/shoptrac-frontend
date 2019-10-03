@@ -162,7 +162,6 @@ export default {
             var self = this
 
             self.action = `${self.$i18n.t('savingPurchase')} ...`
-            console.log(self.purchase)
             Api.updatePurchase(this.purchase)
                 .then(resp => {
                     switch (resp.status) {
