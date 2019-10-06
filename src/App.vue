@@ -15,7 +15,7 @@
 
     <toast-view></toast-view>
 
-    <div class="w3-row w3-theme w3-display-container">
+    <div id="header" class="w3-row w3-theme w3-display-container">
         <div class="w3-half st-heading">
             <h2 class="w3-left-align">Shoptrac</h2>
         </div>
@@ -36,8 +36,9 @@
         </div>
     </div>
 
-    <router-view/>
-    <div class="w3-row w3-padding w3-theme w3-display-container">
+    <router-view id="router-view" />
+
+    <div id="footer" class="w3-row w3-padding w3-theme w3-display-container">
         <div class="w3-third">
             &nbsp;
         </div>
@@ -158,11 +159,42 @@ body {
     margin: 0;
     padding: 0;
 }
+
 #app {
   font-family: 'DejaVu Sans', Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
+
+#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+}
+
+#router-view {
+  position: absolute;
+  top: 70px;
+  bottom: 55px;
+  left: 0;
+  right: 0;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+}
+
 .st-heading {
     padding-left: 20px;
     height: 70px;
