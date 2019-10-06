@@ -7,6 +7,8 @@ import App from './App'
 
 import Console from '@/utils/Console'
 
+window._APP_VERSION = '2019.1-beta (20191006)'
+
 Console.LEVEL = Console.LEVEL_LOG
 
 Vue.config.productionTip = false

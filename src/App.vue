@@ -39,8 +39,8 @@
     <router-view id="router-view" />
 
     <div id="footer" class="w3-row w3-padding w3-theme w3-display-container">
-        <div class="w3-third">
-            &nbsp;
+        <div class="w3-third st-version">
+            <p>Shoptrac {{appVersion}}</p>
         </div>
         <div class="w3-third st-copyright">
             <p class="w3-display-center">Copyright &copy; 2018 shoptrac contributors</p>
@@ -86,6 +86,10 @@ export default {
   },
 
   mounted () {
+  },
+
+  computed: {
+    appVersion () { return window._APP_VERSION }
   },
 
   methods: {
@@ -213,6 +217,9 @@ body {
     top: 50%;
     left: 20px;
     transform: translate(0%, -50%);
+}
+.st-version {
+  font-size: .8em;
 }
 .st-copyright {
     font-size: .8em;
