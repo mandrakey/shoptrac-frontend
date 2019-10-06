@@ -44,7 +44,7 @@
             </div>
 
             <div class="margin-top-5">
-                <keypad @submit="createNewPurchase($event)"></keypad>
+                <keypad ref="keypad" @submit="createNewPurchase($event)"></keypad>
             </div>
         </div>
     </div>
@@ -173,6 +173,7 @@ export default {
                         })
 
                         self.addPurchaseOrReload(p)
+                        self.$refs['keypad'].clear()
                     } else {
                         window.toast({
                             color: 'red',

@@ -220,6 +220,12 @@ export default {
 
     enter: function () {
       this.$emit('submit', { sum: this.theValue })
+    },
+
+    clear: function () {
+      this.theValue = ''
+      this.$forceUpdate()
+      this.$emit('change', { sum: this.theValue })
     }
   }
 }
