@@ -17,6 +17,7 @@
 
         <div class="w3-col l8 m8 s12 w3-padding">
             <month-selector ref="month-selector" @change="MonthSelector_Change($event)" />
+            <overview-stats ref="overview-stats" :month="currentMonth" :year="currentYear"></overview-stats>
             <purchase-list :month="currentMonth" :year="currentYear" ref="purchase-list"></purchase-list>
         </div>
 
@@ -80,6 +81,7 @@ import CategorySelect from '@/components/CategorySelect'
 import ModalDeletePurchase from '@/components/ModalDeletePurchase'
 import ModalEditPurchase from '@/components/ModalEditPurchase'
 import ModalAction from '@/components/ModalAction'
+import OverviewStats from '@/components/OverviewStats'
 
 export default {
     components: {
@@ -90,7 +92,8 @@ export default {
         CategorySelect,
         ModalDeletePurchase,
         ModalEditPurchase,
-        ModalAction
+        ModalAction,
+        OverviewStats
     },
 
     data () {

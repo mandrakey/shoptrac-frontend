@@ -107,4 +107,11 @@ export default class Api {
       data: category
     })
   }
+
+  static getOverviewStatistics (month, year) {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/statistics/overview/${year}/${month}`
+    })
+  }
 }

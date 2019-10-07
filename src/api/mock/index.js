@@ -1,4 +1,5 @@
 import store from '@/store'
+import Console from '@/utils/Console'
 
 import purchasesList from './data/purchasesList'
 import venuesList from './data/venues'
@@ -81,5 +82,17 @@ export default class Api {
   static addCategory (category) {
     category._key = 99
     return this.fetch({ status: 200, data: { category: category } }, 800)
+  }
+
+  static getOverviewStatistics (month, year) {
+    Console.debug(`getOverviewStatistics(${month}, ${year})`)
+    return this.fetch({
+      status: 200,
+      data: {
+        lastMonth: { count: 12, sum: '245.45' },
+        currentMonth: { count: 2, sum: '12.45' },
+        allTime: { count: 14, sum: '257.90' }
+      }
+    }, 600)
   }
 }
