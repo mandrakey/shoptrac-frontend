@@ -155,7 +155,7 @@ export default {
 <style scoped>
 #purchaseItemsContainer {
     max-height: 500px;
-    overflow-y: auto;
+    overflow-y: scroll;
     border: 1px solid #333;
 }
 </style>
