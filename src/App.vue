@@ -175,27 +175,7 @@ body {
   bottom: 0;
 }
 
-#header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-}
-
-#router-view {
-  position: absolute;
-  top: 70px;
-  bottom: 55px;
-  left: 0;
-  right: 0;
-}
-
 #footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   height: 55px;
 }
 

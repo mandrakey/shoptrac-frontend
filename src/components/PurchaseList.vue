@@ -145,7 +145,7 @@ export default {
                     return 0
                 }
 
-                return a.date < b.date ? -1 : 1
+                return a.date < b.date ? 1 : -1
             })
         }
     }
@@ -154,8 +154,6 @@ export default {
 
 <style scoped>
 #purchaseItemsContainer {
-    max-height: 500px;
-    overflow-y: scroll;
     border: 1px solid #333;
 }
 </style>
