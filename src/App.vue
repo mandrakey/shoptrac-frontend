@@ -85,9 +85,6 @@ export default {
     this.loadCategories()
   },
 
-  mounted () {
-  },
-
   computed: {
     appVersion () { return window._APP_VERSION }
   },
