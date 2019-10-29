@@ -176,7 +176,7 @@ export default {
 
                     var savedCategory = null
                     try {
-                        savedCategory = Category.fromObject(resp.data)
+                        savedCategory = Category.fromObject(resp.data.category)
                     } catch (err) {
                         Console.debug(`Invalid response after adding a category: ${err}`)
                         window.toast({

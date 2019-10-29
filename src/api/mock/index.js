@@ -80,7 +80,7 @@ export default class Api {
   }
 
   static addCategory (category) {
-    category._key = 99
+    category._key = '99'
     return this.fetch({ status: 200, data: { category: category } }, 800)
   }
 
