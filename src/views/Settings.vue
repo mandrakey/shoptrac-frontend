@@ -106,6 +106,7 @@
 <script>
 import Api from 'api'
 import Console from '@/utils/Console'
+import store from '@/store'
 
 import Venue from '@/model/Venue'
 import Category from '@/model/Category'
@@ -214,6 +215,7 @@ export default {
             }
 
             this.venues.push(event.venue)
+            this.commitVenues()
         },
 
         beginEditVenue () {
@@ -239,6 +241,7 @@ export default {
                     // Update!
                     v.name = venue.name
                     v.image = venue.image
+                    this.commitVenues()
                     return
                 }
             }
@@ -258,6 +261,7 @@ export default {
             if (this.selectedVenue === venue._key) {
                 this.selectedVenue = null
             }
+            this.commitVenues()
         },
 
         // ====
@@ -324,6 +328,7 @@ export default {
             }
 
             this.categories.push(event.category)
+            this.commitCategories()
         },
 
         beginEditCategory () {
@@ -346,6 +351,7 @@ export default {
                 var c = this.categories[i]
                 if (c._key === category._key) {
                     c.name = category.name
+                    this.commitCategories()
                     return
                 }
             }
@@ -365,6 +371,15 @@ export default {
             if (this.selectedCategory === category._key) {
                 this.selectedCategory = null
             }
+            this.commitCategories()
+        },
+
+        commitVenues () {
+            store.commit('venues', this.venues)
+        },
+
+        commitCategories () {
+            store.commit('categories', this.categories)
         }
     }
 }
