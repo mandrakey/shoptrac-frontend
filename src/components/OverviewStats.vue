@@ -60,6 +60,7 @@
 <script>
 import Api from 'api'
 import Console from '@/utils/Console'
+import EventBus from '@/utils/EventBus'
 
 export default {
     props: {
@@ -93,6 +94,14 @@ export default {
                 this.reload()
             }
         }
+    },
+
+    mounted () {
+        EventBus.$on('reload-overview-stats', this.reload)
+    },
+
+    destroyed () {
+        EventBus.$off('reload-overview-stats', this.reload)
     },
 
     methods: {

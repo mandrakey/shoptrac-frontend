@@ -133,6 +133,7 @@ export default {
 
         modalDeletePurchase_Deleted (event) {
             this.$refs['purchase-list'].removePurchase(event)
+            EventBus.$emit('reload-overview-stats')
         },
 
         beginEditPurchase (purchase) {
@@ -142,6 +143,7 @@ export default {
         modalEditPurchase_Save (event) {
             this.$refs['purchase-list'].removePurchase(event.purchase)
             this.$refs['purchase-list'].addPurchase(event.purchase)
+            EventBus.$emit('reload-overview-stats')
         },
 
         createNewPurchase (event) {
@@ -216,6 +218,7 @@ export default {
             if (purchase.month === this.currentMonth && purchase.year === this.currentYear) {
                 // Add to the list
                 this.$refs['purchase-list'].addPurchase(purchase)
+                EventBus.$emit('reload-overview-stats')
             } else {
                 // Set month/year to trigger list reload
                 this.$refs['month-selector'].setDate(purchase.month, purchase.year)
