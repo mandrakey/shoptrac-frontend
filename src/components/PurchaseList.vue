@@ -67,6 +67,7 @@ export default {
             var self = this
 
             self.loading = true
+            self.selectedPurchase = ''
             Console.debug(`Reloading: ${self.year}/${self.month}`)
             Api.getPurchases(self.month, self.year)
                 .then(resp => {
@@ -132,10 +133,12 @@ export default {
             var self = this
 
             self.purchasesList = self.purchasesList.filter(p => purchase._key !== p._key)
+            self.selectedPurchase = ''
         },
 
         addPurchase (purchase) {
             this.purchasesList.push(purchase)
+            this.selectedPurchase = ''
             this.sortPurchases()
         },
 
