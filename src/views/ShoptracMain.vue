@@ -163,20 +163,21 @@ export default {
             self.$refs['modal-action'].setAction(self.$i18n.t('savingPurchase'))
             Api.addPurchase(p)
                 .then(resp => {
-                    if (typeof resp.status !== 'number') {
-                        window.toast({
-                            color: 'red',
-                            text: self.$i18n.t('errors.invalidApiResponse')
-                        })
-                        return
-                    }
-
                     if (resp.status === 200) {
+                        if (typeof resp.data !== 'object') {
+                            window.toast({
+                                text: self.$i18n.t('errors.apiCommunication'),
+                                color: 'red'
+                            })
+                            return
+                        }
+
                         window.toast({
                             color: 'green',
                             text: self.$i18n.t('purchaseHasBeenSaved')
                         })
 
+                        p = Purchase.fromObject(resp.data)
                         self.addPurchaseOrReload(p)
                         self.$refs['keypad'].clear()
                     } else {
