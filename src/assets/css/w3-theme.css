@@ -77,11 +77,14 @@
 .background-primary-0 { background: #006E6E; color: #fff !important; }	/* Main Primary color */
 .background-primary-1 { background: #279191; color: #fff !important; }
 .background-primary-2 { background: #088888 }
-.background-primary-3 { background: #005959 }
+.background-primary-3 { background: #005959; color: #fff !important; }
 .background-primary-4 { background: #003F3F }
 
+.border-primary-0 { border: 1px solid #006E6E; }
+
 .hover-primary-0:hover { background: #279191 !important; color: #fff !important; }
-.hover-primary-4:hover { background: #005959 !important; color: #fff !important; }
+.hover-primary-3:hover { background: #005959 !important; color: #fff !important; }
+.hover-primary-4:hover { background: #003F3F !important; color: #fff !important; }
 
 .color-secondary-1-0 { color: #B77A00 }	/* Main Secondary color (1) */
 .color-secondary-1-1 { color: #F2B741 }
@@ -110,5 +113,9 @@
 .background-complement-0 { background: #B75300; color: #fff; }	/* Main Complement color */
 .background-complement-1 { background: #F29141; color: #000; }
 .background-complement-2 { background: #E26E0D }
-.background-complement-3 { background: #954300 }
-.background-complement-4 { background: #6A3000 }
+.background-complement-3 { background: #954300; color: #fff; }
+.background-complement-4 { background: #6A3000; color: #fff; }
+
+.border-complement-4 { border: 1px solid #6A3000; }
+
+.hover-complement-3:hover { background: #954300 !important; color: #fff !important; }
