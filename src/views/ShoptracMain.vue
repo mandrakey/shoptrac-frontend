@@ -50,7 +50,7 @@
             </div>
 
             <div class="w3-row margin-top-20">
-                <button class="w3-button w3-block background-complement-0" @click="resetForm()">
+                <button class="w3-button w3-block background-primary-1" @click="resetForm()">
                     {{ $t('resetForm') }}
                 </button>
             </div>

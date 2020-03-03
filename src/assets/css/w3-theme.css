@@ -75,7 +75,7 @@
 .color-primary-4 { color: #003F3F }
 
 .background-primary-0 { background: #006E6E; color: #fff !important; }	/* Main Primary color */
-.background-primary-1 { background: #279191 }
+.background-primary-1 { background: #279191; color: #fff !important; }
 .background-primary-2 { background: #088888 }
 .background-primary-3 { background: #005959 }
 .background-primary-4 { background: #003F3F }
