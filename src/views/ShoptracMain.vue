@@ -134,8 +134,10 @@ export default {
     methods: {
         setCurrentMonth () {
             var d = new Date()
-            this.currentMonth = d.getMonth() + 1
-            this.currentYear = d.getFullYear()
+            this.$refs['month-selector'].setDate(
+                d.getMonth() + 1,
+                d.getFullYear()
+            )
             this.newPurchaseDate = moment().format('YYYY-MM-DD')
         },
 
