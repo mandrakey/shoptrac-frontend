@@ -48,6 +48,13 @@ export default class Api {
     })
   }
 
+  static getPurchaseTimestamps () {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/purchases/timestamps`
+    })
+  }
+
   static getVenues () {
     return this.execute({
       method: 'get',
