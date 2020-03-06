@@ -25,14 +25,9 @@ export default class Api {
     vm.$router.push('/')
   }
 
-  static getPurchases (month, year) {
-    var key = `${year}-${month}`
-    if (typeof purchasesList[key] !== 'object') {
-      return this.fetch({ status: 404, data: { message: `no purchases for month ${key}` } }, 1000)
-    }
-
+  static getPurchases () {
     return this.fetch(
-      { status: 200, data: purchasesList[key].map(e => Purchase.fromObject(e)) },
+      { status: 200, data: purchasesList.map(e => Purchase.fromObject(e)) },
       1000
     )
   }

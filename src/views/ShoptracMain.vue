@@ -4,7 +4,8 @@
     "en": {
         "purchaseHasBeenSaved": "The purchase has been saved.",
         "failedToSavePurchase": "Failed to save the purchase.",
-        "savingPurchase": "Saving purchase"
+        "savingPurchase": "Saving purchase",
+        "resetForm": "Reset form"
     }
 }
 </i18n>
@@ -25,14 +26,14 @@
             <div class="w3-row margin-top-5">
                 <div class="w3-third st-label">{{ $t('venue') }}:</div>
                 <div class="w3-twothird">
-                    <venue-select :items="[]" @selected="changeCurrentVenue($event)"></venue-select>
+                    <venue-select ref="venue-select" :items="[]" @selected="changeCurrentVenue($event)"></venue-select>
                 </div>
             </div>
 
             <div class="w3-row margin-top-5">
                 <div class="w3-third st-label">{{ $t('category') }}:</div>
                 <div class="w3-twothird">
-                    <category-select :items="[]" @selected="changeCurrentCategory($event)"></category-select>
+                    <category-select ref="category-select" :items="[]" @selected="changeCurrentCategory($event)"></category-select>
                 </div>
             </div>
 
@@ -44,8 +45,14 @@
                 </div>
             </div>
 
-            <div class="margin-top-5">
+            <div class="w3-row margin-top-5">
                 <keypad ref="keypad" @submit="createNewPurchase($event)"></keypad>
+            </div>
+
+            <div class="w3-row margin-top-20">
+                <button class="w3-button w3-block background-primary-1" @click="resetForm()">
+                    {{ $t('resetForm') }}
+                </button>
             </div>
         </div>
     </div>
@@ -60,6 +67,10 @@
     margin-top: 5px;
 }
 
+.margin-top-20 {
+    margin-top: 20px;
+}
+
 .date {
     cursor: pointer;
 }
@@ -69,6 +80,7 @@
 import moment from 'moment'
 import Api from 'api'
 
+import store from '@/store'
 import EventBus from '@/utils/EventBus'
 
 import Purchase from '@/model/Purchase'
@@ -108,9 +120,7 @@ export default {
     },
 
     mounted () {
-        var d = new Date()
-        this.currentMonth = d.getMonth() + 1
-        this.currentYear = d.getFullYear()
+        this.setCurrentMonth()
 
         EventBus.$on('begin-delete-purchase', this.beginDeletePurchase)
         EventBus.$on('begin-edit-purchase', this.beginEditPurchase)
@@ -122,6 +132,15 @@ export default {
     },
 
     methods: {
+        setCurrentMonth () {
+            var d = new Date()
+            this.$refs['month-selector'].setDate(
+                d.getMonth() + 1,
+                d.getFullYear()
+            )
+            this.newPurchaseDate = moment().format('YYYY-MM-DD')
+        },
+
         MonthSelector_Change (event) {
             this.currentYear = event.year
             this.currentMonth = event.month
@@ -224,6 +243,21 @@ export default {
                 // Set month/year to trigger list reload
                 this.$refs['month-selector'].setDate(purchase.month, purchase.year)
             }
+        },
+
+        resetForm () {
+            var self = this
+
+            self.setCurrentMonth()
+            self.$refs['keypad'].setValue('0')
+            
+            var keys = Object.keys(store.state.venues)
+            self.currentVenue = store.state.venues[keys[0]]._key
+            self.$refs['venue-select'].selectByKey(self.currentVenue)
+
+            keys = Object.keys(store.state.categories)
+            self.currentCategory = store.state.categories[keys[0]]._key
+            self.$refs['category-select'].selectByKey(self.currentCategory)
         }
     }
 }

@@ -75,7 +75,7 @@
 .color-primary-4 { color: #003F3F }
 
 .background-primary-0 { background: #006E6E; color: #fff !important; }	/* Main Primary color */
-.background-primary-1 { background: #279191 }
+.background-primary-1 { background: #279191; color: #fff !important; }
 .background-primary-2 { background: #088888 }
 .background-primary-3 { background: #005959 }
 .background-primary-4 { background: #003F3F }
@@ -107,7 +107,7 @@
 .color-complement-3 { color: #954300 }
 .color-complement-4 { color: #6A3000 }
 
-.background-complement-0 { background: #B75300 }	/* Main Complement color */
+.background-complement-0 { background: #B75300; color: #fff; }	/* Main Complement color */
 .background-complement-1 { background: #F29141; color: #000; }
 .background-complement-2 { background: #E26E0D }
 .background-complement-3 { background: #954300 }
