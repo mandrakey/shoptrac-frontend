@@ -7,7 +7,7 @@ import App from './App'
 
 import Console from '@/utils/Console'
 
-window._APP_VERSION = '2019.1-beta (20191121)'
+window._APP_VERSION = '2020.1 (20200306)'
 
 Console.LEVEL = Console.LEVEL_LOG
 

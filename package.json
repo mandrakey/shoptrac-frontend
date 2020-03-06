@@ -1,6 +1,6 @@
 {
   "name": "shoptrac-frontend",
-  "version": "2019.1.0-beta",
+  "version": "2020.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
