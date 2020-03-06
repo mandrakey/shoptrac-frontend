@@ -45,6 +45,40 @@ export default class Api {
     return this.fetch({ status: 200, data: purchase }, 800)
   }
 
+  static getPurchaseTimestamps () {
+    var d = new Date()
+    var year = d.getFullYear()
+    var month = d.getMonth() + 1
+
+    var res = []
+
+    // Add the past 6 months
+    for (var i = 6; i > 0; --i) {
+      var m = month - i
+      
+      var y = year
+      if (m < 1) {
+        y -= 1
+        m = 12 + m
+      }
+      res.push({ month: m, year: y })
+    }
+
+    // Add the next 6 months
+    for (i = 0; i < 7; ++i) {
+      m = month + i
+
+      y = year
+      if (m > 12) {
+        y += 1
+        m = m - 12
+      }
+      res.push({ month: m, year: y })
+    }
+
+    return this.fetch({ status: 200, data: res })
+  }
+
   static getVenues () {
     return this.fetch({ status: 200, data: venuesList })
   }
