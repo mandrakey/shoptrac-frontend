@@ -76,7 +76,7 @@ export default class Api {
       res.push({ month: m, year: y })
     }
 
-    return res
+    return this.fetch({ status: 200, data: res })
   }
 
   static getVenues () {

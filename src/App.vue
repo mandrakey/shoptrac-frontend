@@ -83,6 +83,7 @@ export default {
   created () {
     this.loadVenues()
     this.loadCategories()
+    this.loadPurchaseTimestamps()
   },
 
   computed: {
@@ -149,6 +150,32 @@ export default {
         .catch(err => {
           // window.message(self.$i18n.t('errors.apiCommunication', [err]), 'red', 2500)
           Console.log(`API communication: ${err}`)
+        })
+    },
+
+    loadPurchaseTimestamps () {
+      var self = this
+
+      Api.getPurchaseTimestamps()
+        .then(resp => {
+          if (typeof resp.status !== 'number' || resp.status !== 200) {
+            Console.error(`Invalid API response: ${JSON.stringify(resp)}`)
+            window.toast({
+              text: self.$i18n.t('errors.invalidApiResponse'),
+              color: 'red'
+            })
+            return
+          }
+
+          store.commit('setPurchaseTimestamps', resp.data)
+          EventBus.$emit('purchase-timestamps-updated')
+        })
+        .catch(err => {
+          window.toast({
+            text: self.$i18n.t('errors.apiCommunication'),
+            color: 'red'
+          })
+          Console.error(`API communication: ${err}`)
         })
     }
   }

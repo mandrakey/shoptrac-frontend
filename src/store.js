@@ -7,7 +7,8 @@ const store = new Vuex.Store({
   state: {
     user: null,
     venues: [],
-    categories: []
+    categories: [],
+    purchaseTimestamps: []
   },
 
   mutations: {
@@ -19,6 +20,10 @@ const store = new Vuex.Store({
     categories (state, data) {
       // todo: Add validation logic
       state.categories = data
+    },
+
+    setPurchaseTimestamps (state, data) {
+      state.purchaseTimestamps = data
     }
   }
 })
