@@ -42,6 +42,11 @@
     margin-bottom: 10px;
 }
 
+.w3-button:hover {
+    background: #279191 !important;
+    color: #fff !important;
+}
+
 /* General theme color styles */
 .w3-theme-l5 {color:#000 !important; background-color:#e7ffff !important}
 .w3-theme-l4 {color:#000 !important; background-color:#affffe !important}
@@ -76,7 +81,7 @@
 
 .background-primary-0 { background: #006E6E; color: #fff !important; }	/* Main Primary color */
 .background-primary-1 { background: #279191; color: #fff !important; }
-.background-primary-2 { background: #088888 }
+.background-primary-2 { background: #088888; color: #fff !important; }
 .background-primary-3 { background: #005959; color: #fff !important; }
 .background-primary-4 { background: #003F3F }
 

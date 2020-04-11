@@ -23,15 +23,15 @@
         <div class="w3-half st-menu">
           <div class="st-display-right">
             <router-link to="/" 
-                :class="['w3-button', ($route.path === '/' ? 'background-complement-4' : 'w3-theme-dark')]">
+                :class="['w3-button', ($route.path === '/' ? 'background-primary-2' : 'w3-theme-dark')]">
               {{ $t('nav.purchases') }}
             </router-link>&nbsp;
             <router-link to="/settings"
-                :class="['w3-button', ($route.path === '/settings' ? 'background-complement-4' : 'w3-theme-dark')]">
+                :class="['w3-button', ($route.path === '/settings' ? 'background-primary-2' : 'w3-theme-dark')]">
               {{ $t('nav.settings') }}
             </router-link>&nbsp;
             <router-link to="/statistics"
-                :class="['w3-button', ($route.path === '/statistics' ? 'background-complement-4' : 'w3-theme-dark')]">
+                :class="['w3-button', ($route.path === '/statistics' ? 'background-primary-2' : 'w3-theme-dark')]">
               {{ $t('nav.statistics') }}
             </router-link>
           </div>

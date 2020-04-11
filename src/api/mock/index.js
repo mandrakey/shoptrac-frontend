@@ -33,6 +33,13 @@ export default class Api {
     )
   }
 
+  static getPurchasesUnfiltered () {
+    return this.fetch(
+      { status: 200, data: statistics },
+      1000
+    )
+  }
+
   static deletePurchase () {
     return this.fetch({ status: 200, data: null }, 800)
   }

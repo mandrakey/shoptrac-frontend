@@ -8,8 +8,11 @@
     "N/A": "N/A",
 
     "category": "Category",
+    "allCategories": "All categories",
     "venue": "Venue",
+    "allVenues": "All venues",
     "date": "Date",
+    "allYears": "All years",
 
     "YYYY-MM-DD": "YYYY-MM-DD",
 

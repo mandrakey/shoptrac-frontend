@@ -9,6 +9,11 @@
             {{ selected.name }}
         </button>
         <div :class="['w3-dropdown-content', 'w3-bar-block', 'w3-border', { 'w3-show': showDropdown }]">
+            <span v-if="allowEmpty">
+                <a class="w3-button w3-bar-item" @click="select({ _key: -1, name: $t('allVenues'), image: '' })">
+                    {{ $t('allVenues') }}
+                </a>
+            </span>
             <span v-for="v in venues" :key="v._key">
                 <a class="w3-button w3-bar-item" @click="select(v)">
                     <img v-if="typeof v.image !== 'undefined' && v.image !== ''"
@@ -37,6 +42,10 @@ export default {
         'value': {
             type: Number,
             default: -1
+        },
+        'allow-empty': {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -60,7 +69,7 @@ export default {
     data () {
         return {
             showDropdown: false,
-            selected: { key: -1, image: '', name: '' }
+            selected: { key: -1, image: '', name: this.$i18n.t('allVenues') }
         }
     },
 
@@ -69,6 +78,10 @@ export default {
             if (typeof this.venues[venue._key] === 'object') {
                 this.selected = this.venues[venue._key]
                 this.$emit('selected', { venue: this.selected._key })
+                this.toggleDropdown()
+            } else if (venue._key === -1) {
+                this.selected = venue
+                this.$emit('selected', { venue: venue._key })
                 this.toggleDropdown()
             }
         },
@@ -81,6 +94,13 @@ export default {
 
         preselect () {
             if (this.selected._key > 0) {
+                return
+            }
+
+            if (this.allowEmpty) {
+                var v = { _key: -1, name: this.$i18n.t('allVenues'), image: '' }
+                this.selected = v
+                this.$emit('selected', { venue: v._key })
                 return
             }
 
