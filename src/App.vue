@@ -4,7 +4,8 @@
   "en": {
     "nav": {
       "settings": "Settings",
-      "purchases": "Purchases"
+      "purchases": "Purchases",
+      "statistics": "Statistics"
     }
   }
 }
@@ -20,19 +21,20 @@
             <h2 class="w3-left-align">Shoptrac</h2>
         </div>
         <div class="w3-half st-menu">
-          <router-link
-              v-if="$route.path === '/'"
-              to="/settings"
-              class="w3-button w3-theme-dark st-display-right"
-            >
-            {{ $t('nav.settings') }}
-          </router-link>
-          <router-link
-              v-if="$route.path === '/settings'"
-              to="/"
-              class="w3-button w3-theme-dark st-display-right">
-            {{ $t('nav.purchases') }}
-          </router-link>
+          <div class="st-display-right">
+            <router-link to="/" 
+                :class="['w3-button', ($route.path === '/' ? 'background-primary-2' : 'w3-theme-dark')]">
+              {{ $t('nav.purchases') }}
+            </router-link>&nbsp;
+            <router-link to="/settings"
+                :class="['w3-button', ($route.path === '/settings' ? 'background-primary-2' : 'w3-theme-dark')]">
+              {{ $t('nav.settings') }}
+            </router-link>&nbsp;
+            <router-link to="/statistics"
+                :class="['w3-button', ($route.path === '/statistics' ? 'background-primary-2' : 'w3-theme-dark')]">
+              {{ $t('nav.statistics') }}
+            </router-link>
+          </div>
         </div>
     </div>
 

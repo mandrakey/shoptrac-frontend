@@ -4,6 +4,7 @@ import Console from '@/utils/Console'
 import purchasesList from './data/purchasesList'
 import venuesList from './data/venues'
 import categoriesList from './data/categories'
+import statistics from './data/statistics'
 
 import Purchase from '@/model/Purchase'
 
@@ -28,6 +29,13 @@ export default class Api {
   static getPurchases () {
     return this.fetch(
       { status: 200, data: purchasesList.map(e => Purchase.fromObject(e)) },
+      1000
+    )
+  }
+
+  static getPurchasesUnfiltered () {
+    return this.fetch(
+      { status: 200, data: statistics },
       1000
     )
   }
@@ -113,6 +121,13 @@ export default class Api {
     return this.fetch({ status: 200, data: { category: category } }, 800)
   }
 
+  static getYears () {
+    return this.fetch({
+      status: 200,
+      data: [ 2018, 2019 ]
+    }, 300)
+  }
+
   static getOverviewStatistics (month, year) {
     Console.debug(`getOverviewStatistics(${month}, ${year})`)
     return this.fetch({
@@ -123,5 +138,16 @@ export default class Api {
         allTime: { count: 14, sum: '257.90' }
       }
     }, 600)
+  }
+
+  static getStatisticsOverallDevelopment (month, year, type) {
+    Console.debug(`getStatisticsOverallDevelopment(${month}, ${year}, '${type}')`)
+
+    if (year === '' && month === '') {
+      return this.fetch({
+        status: 200,
+        data: statistics.overall.development[type]['']
+      }, 400)
+    }
   }
 }

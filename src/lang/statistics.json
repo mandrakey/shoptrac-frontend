@@ -1,0 +1,10 @@
+{
+  "en": {
+    "loadingStatistics": "Loading statistics ...",
+    "sum": "Sum",
+    "amountOfPurchases": "# Purchases",
+    
+    "failedToLoadStatisticsData": "Failed to load statistics data.",
+    "pleaseSelectAYearToDisplay": "Please select a year to display."
+  }
+}

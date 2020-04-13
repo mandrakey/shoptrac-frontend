@@ -6,17 +6,15 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: () => import('@/views/ShoptracMain'),
-    meta: {
-      requireLogin: true
-    }
+    component: () => import('@/views/ShoptracMain')
   },
   {
     path: '/settings',
-    component: () => import('@/views/Settings'),
-    meta: {
-      requireLogin: true
-    }
+    component: () => import('@/views/Settings')
+  },
+  {
+    path: '/statistics',
+    component: () => import('@/views/Statistics')
   }
 ]
 

@@ -25,6 +25,13 @@ export default class Api {
     })
   }
 
+  static getPurchasesUnfiltered () {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/statistics/purchases_unfiltered`
+    })
+  }
+
   static deletePurchase (purchase) {
     return this.execute({
       method: 'delete',

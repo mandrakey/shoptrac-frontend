@@ -9,6 +9,11 @@
             {{ selected.name }}
         </button>
         <div :class="['w3-dropdown-content', 'w3-bar-block', 'w3-border', { 'w3-show': showDropdown }]">
+            <span v-if="allowEmpty">
+                <a class="w3-button w3-bar-item" @click="select({ _key: -1, name: $t('allCategories') })">
+                    {{ $t('allCategories') }}
+                </a>
+            </span>
             <span v-for="c in categories" :key="c._key">
                 <a class="w3-button w3-bar-item" @click="select(c)">
                     {{ c.name }}
@@ -34,6 +39,10 @@ export default {
         'value': {
             type: Number,
             default: -1
+        },
+        'allow-empty': {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -46,7 +55,7 @@ export default {
     data () {
         return {
             showDropdown: false,
-            selected: { key: -1, name: '' }
+            selected: { _key: -1, name: this.$i18n.t('allCategories') }
         }
     },
 
@@ -67,6 +76,10 @@ export default {
                 this.selected = this.categories[category._key]
                 this.$emit('selected', { category: this.selected._key })
                 this.toggleDropdown()
+            } else if (category._key === -1 && this.allowEmpty) {
+                this.selected = category
+                this.$emit('selected', { category: category._key })
+                this.toggleDropdown()
             }
         },
 
@@ -78,6 +91,13 @@ export default {
 
         preselect () {
             if (this.selected._key > 0) {
+                return
+            }
+
+            if (this.allowEmpty) {
+                var c = { _key: -1, name: this.$i18n.t('allCategories') }
+                this.selected = c
+                this.$emit('selected', { category: c._key })
                 return
             }
 
