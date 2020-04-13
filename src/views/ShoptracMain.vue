@@ -46,7 +46,7 @@
             </div>
 
             <div class="w3-row margin-top-5">
-                <keypad ref="keypad" @submit="createNewPurchase($event)"></keypad>
+                <keypad ref="keypad" @submit="createNewPurchase($event)" @change="keypadValueChanged()"></keypad>
             </div>
 
             <div class="w3-row margin-top-20">
@@ -110,6 +110,9 @@ export default {
 
     data () {
         return {
+            autoreloadTimeout: 3600000, // reload every hour
+            autoreloadTimer: null,
+
             currentMonth: 1,
             currentYear: 2019,
             currentVenue: -1,
@@ -124,9 +127,17 @@ export default {
 
         EventBus.$on('begin-delete-purchase', this.beginDeletePurchase)
         EventBus.$on('begin-edit-purchase', this.beginEditPurchase)
+
+        this.scheduleReload()
     },
 
     destroyed () {
+        // Remove scheduled reload, if any
+        if (this.autoreloadTimer !== null) {
+            window.clearTimeout(this.autoreloadTimer)
+            this.autoreloadTimer = null
+        }
+
         EventBus.$off('begin-delete-purchase', this.beginDeletePurchase)
         EventBus.$off('begin-edit-purchase', this.beginEditPurchase)
     },
@@ -153,6 +164,7 @@ export default {
         modalDeletePurchase_Deleted (event) {
             this.$refs['purchase-list'].removePurchase(event)
             EventBus.$emit('reload-overview-stats')
+            this.scheduleReload() // reset reload timer after user input
         },
 
         beginEditPurchase (purchase) {
@@ -163,6 +175,7 @@ export default {
             this.$refs['purchase-list'].removePurchase(event.purchase)
             this.$refs['purchase-list'].addPurchase(event.purchase)
             EventBus.$emit('reload-overview-stats')
+            this.scheduleReload() // reset reload timer after user input
         },
 
         createNewPurchase (event) {
@@ -221,13 +234,19 @@ export default {
         changeCurrentVenue (event) {
             if (typeof event.venue === 'string') {
                 this.currentVenue = event.venue
+                this.scheduleReload() // reset reload timer after user input
             }
         },
 
         changeCurrentCategory (event) {
             if (typeof event.category === 'string') {
                 this.currentCategory = event.category
+                this.scheduleReload() // reset reload timer after user input
             }
+        },
+
+        keypadValueChanged () {
+            this.scheduleReload() // reset reload timer after user input
         },
 
         addPurchaseOrReload (purchase) {
@@ -235,6 +254,7 @@ export default {
                 throw 'Expect a purchase object'
             }
 
+            this.scheduleReload() // reset reload timer after user input
             if (purchase.month === this.currentMonth && purchase.year === this.currentYear) {
                 // Add to the list
                 this.$refs['purchase-list'].addPurchase(purchase)
@@ -258,6 +278,36 @@ export default {
             keys = Object.keys(store.state.categories)
             self.currentCategory = store.state.categories[keys[0]]._key
             self.$refs['category-select'].selectByKey(self.currentCategory)
+        },
+
+        /**
+         * Schedule or re-schedule a statistics/list reload combined with a form reset.
+         * If a reload is already scheduled it will be canceled and replaced with a new one while resetting the
+         * timer (to preven form resets while the user was putting something in).
+         */
+        scheduleReload () {
+            if (this.autoreloadTimer !== null) {
+                window.clearTimeout(this.autoreloadTimer)
+            }
+            this.autoreloadTimer = window.setTimeout(this.autoreload, this.autoreloadTimeout)
+        },
+
+        autoreload () {
+            var month = this.currentMonth
+            var year = this.currentYear
+
+            // Reset form
+            this.resetForm()
+
+            // Reload list and overview statistics if month/year did not change (otherwise resetForm triggers a reload
+            // by changing the dates)
+            if (this.currentMonth === month && this.currentYear === year) {
+                this.$refs['overview-stats'].reload()
+                this.$refs['purchase-list'].reloadList()
+            }
+
+            // Re-schedule
+            this.scheduleReload()
         }
     }
 }
