@@ -41,7 +41,7 @@
                 <div class="w3-third st-label">{{ $t('date') }}:</div>
                 <div class="w3-twothird">
                     <input class="w3-input w3-border background-primary-4 hover-primary-4 w3-text-white date"
-                            type="date" v-model="newPurchaseDate">
+                            type="date" v-model="newPurchaseDate" ref="date">
                 </div>
             </div>
 
@@ -127,6 +127,7 @@ export default {
 
         EventBus.$on('begin-delete-purchase', this.beginDeletePurchase)
         EventBus.$on('begin-edit-purchase', this.beginEditPurchase)
+        EventBus.$on('focus-date', this.onFocusDateHandler)
 
         this.scheduleReload()
     },
@@ -140,6 +141,7 @@ export default {
 
         EventBus.$off('begin-delete-purchase', this.beginDeletePurchase)
         EventBus.$off('begin-edit-purchase', this.beginEditPurchase)
+        EventBus.$off('focus-date', this.onFocusDateHandler)
     },
 
     methods: {
@@ -308,6 +310,10 @@ export default {
 
             // Re-schedule
             this.scheduleReload()
+        },
+
+        onFocusDateHandler () {
+            this.$refs['date'].focus()
         }
     }
 }

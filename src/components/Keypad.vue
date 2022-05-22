@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input class="w3-block" type="text" :value="theValue" @keyup="keyPress">
+    <input class="w3-block" type="text" :value="theValue" @keyup="keyPress" ref="sum">
 
     <div class="w3-row">
       <div class="w3-col l9 m9 s9">
@@ -120,6 +120,8 @@
 </template>
 
 <script>
+import EventBus from '@/utils/EventBus'
+
 export default {
   name: 'Keypad',
 
@@ -152,9 +154,15 @@ export default {
   },
 
   mounted () {
+    EventBus.$on('focus-sum', this.onFocusSumHandler)
+
     if (typeof (this.value) !== 'undefined') {
       this.theValue = this.value
     }
+  },
+
+  destroyed () {
+    EventBus.$off('focus-sum', this.onFocusSumHandler)
   },
 
   methods: {
@@ -226,6 +234,10 @@ export default {
       this.theValue = ''
       this.$forceUpdate()
       this.$emit('change', { sum: this.theValue })
+    },
+
+    onFocusSumHandler () {
+      this.$refs['sum'].focus()
     }
   }
 }

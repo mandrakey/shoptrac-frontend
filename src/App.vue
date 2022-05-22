@@ -83,9 +83,15 @@ export default {
   },
 
   created () {
+    window.addEventListener('keyup', this.windowOnKeyUpHandler)
+
     this.loadVenues()
     this.loadCategories()
     this.loadPurchaseTimestamps()
+  },
+
+  destroyed () {
+    window.removeEventListener('keyup', this.windowOnKeyUpHandler)
   },
 
   computed: {
@@ -179,6 +185,19 @@ export default {
           })
           Console.error(`API communication: ${err}`)
         })
+    },
+
+    windowOnKeyUpHandler (event) {
+      if (event.altKey && event.ctrlKey) {
+        switch (event.key.toLowerCase()) {
+          case 's':
+            EventBus.$emit('focus-sum')
+            break
+          case 'd':
+            EventBus.$emit('focus-date')
+            break
+        }
+      }
     }
   }
 }
