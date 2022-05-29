@@ -45,7 +45,7 @@
             <p>Shoptrac {{appVersion}}</p>
         </div>
         <div class="w3-third st-copyright">
-            <p class="w3-display-center">Copyright &copy; 2018 shoptrac contributors</p>
+            <p class="w3-display-center">Copyright &copy; 2018-2022 shoptrac contributors</p>
         </div>
         <div class="w3-third w3-right-align st-display-right">
             <a href="https://github.com/mandrakey/shoptrac" target="_blank">
