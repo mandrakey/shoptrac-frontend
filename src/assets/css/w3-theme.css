@@ -47,6 +47,24 @@
     color: #fff !important;
 }
 
+.st-select {
+    background: #003837;
+    color: #fff;
+    padding: 2px;
+    padding-left: 5px;
+    cursor: text;
+}
+.st-select:hover {
+    background: #279191 !important;
+}
+.st-select input {
+    background: none;
+    color: #fff;
+}
+.st-select input:focus {
+    outline: none;
+}
+
 /* General theme color styles */
 .w3-theme-l5 {color:#000 !important; background-color:#e7ffff !important}
 .w3-theme-l4 {color:#000 !important; background-color:#affffe !important}

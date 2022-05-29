@@ -196,6 +196,12 @@ export default {
           case 'd':
             EventBus.$emit('focus-date')
             break
+          case 'v':
+            EventBus.$emit('focus-venue')
+            break
+          case 'c':
+            EventBus.$emit('focus-category')
+            break
         }
       }
     }
@@ -248,6 +254,9 @@ body {
 }
 .st-copyright {
     font-size: .8em;
+}
+.st-cursor-pointer {
+    cursor: pointer;
 }
 .message-panel {
   padding: 15px;

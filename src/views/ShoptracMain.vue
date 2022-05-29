@@ -127,7 +127,9 @@ export default {
 
         EventBus.$on('begin-delete-purchase', this.beginDeletePurchase)
         EventBus.$on('begin-edit-purchase', this.beginEditPurchase)
-        EventBus.$on('focus-date', this.onFocusDateHandler)
+        EventBus.$on('focus-date', this.onFocusDate)
+        EventBus.$on('focus-venue', this.onFocusVenue)
+        EventBus.$on('focus-category', this.onFocusCategory)
 
         this.scheduleReload()
     },
@@ -141,7 +143,9 @@ export default {
 
         EventBus.$off('begin-delete-purchase', this.beginDeletePurchase)
         EventBus.$off('begin-edit-purchase', this.beginEditPurchase)
-        EventBus.$off('focus-date', this.onFocusDateHandler)
+        EventBus.$off('focus-date', this.onFocusDate)
+        EventBus.$off('focus-venue', this.onFocusVenue)
+        EventBus.$off('focus-category', this.onFocusCategory)
     },
 
     methods: {
@@ -312,8 +316,16 @@ export default {
             this.scheduleReload()
         },
 
-        onFocusDateHandler () {
+        onFocusDate () {
             this.$refs['date'].focus()
+        },
+
+        onFocusVenue () {
+            this.$refs['venue-select'].focus()
+        },
+
+        onFocusCategory () {
+            this.$refs['category-select'].focus()
         }
     }
 }
