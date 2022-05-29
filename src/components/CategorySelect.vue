@@ -114,7 +114,7 @@ export default {
                 this.$refs['selectedName'].blur()
             } else {
                 if (!this.mouseInDropdown) {
-                    this.showDropdown = false
+                    window.setTimeout(() => this.showDropdown = false, 200)
                 }
             }
         },
