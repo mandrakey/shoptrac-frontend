@@ -1,4 +1,3 @@
-import store from '@/store'
 import Console from '@/utils/Console'
 
 import purchasesList from './data/purchasesList'
@@ -19,11 +18,6 @@ export default class Api {
         }
       }, delay)
     })
-  }
-
-  static performLogout (vm) {
-    store.commit('user', null)
-    vm.$router.push('/')
   }
 
   static getPurchases () {
@@ -149,5 +143,25 @@ export default class Api {
         data: statistics.overall.development[type]['']
       }, 400)
     }
+  }
+
+  static postLogin (username, password, rememberMe = false) {
+    Console.debug(`postLogin('${username}', '${password}', ${rememberMe})`)
+
+    return this.fetch({
+      status: 200,
+      data: {
+        uuid: 'session1',
+        remember_me_token: 'token1'
+      }
+    }, 600)
+  }
+
+  static getLogout () {
+    Console.debug('getLogout()')
+
+    return this.fetch({
+      status: 201
+    }, 100)
   }
 }

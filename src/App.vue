@@ -5,7 +5,8 @@
     "nav": {
       "settings": "Settings",
       "purchases": "Purchases",
-      "statistics": "Statistics"
+      "statistics": "Statistics",
+      "logout": "Log out"
     }
   }
 }
@@ -21,7 +22,7 @@
             <h2 class="w3-left-align">Shoptrac</h2>
         </div>
         <div class="w3-half st-menu">
-          <div class="st-display-right">
+          <div id="navigation-menu" :class="['st-display-right', { 'w3-show': isLoggedIn }]">
             <router-link to="/" 
                 :class="['w3-button', ($route.path === '/' ? 'background-primary-2' : 'w3-theme-dark')]">
               {{ $t('nav.purchases') }}
@@ -34,6 +35,10 @@
                 :class="['w3-button', ($route.path === '/statistics' ? 'background-primary-2' : 'w3-theme-dark')]">
               {{ $t('nav.statistics') }}
             </router-link>
+            &nbsp;&nbsp;
+            <button class="w3-button w3-theme-dark" @click="onLogoutClicked()">
+              {{ $t('nav.logout') }}
+            </button>
           </div>
         </div>
     </div>
@@ -63,6 +68,7 @@
 import Api from 'api'
 import Console from '@/utils/Console'
 import EventBus from '@/utils/EventBus'
+import Session from '@/utils/Session'
 
 import Venue from '@/model/Venue'
 import Category from '@/model/Category'
@@ -84,14 +90,19 @@ export default {
 
   created () {
     window.addEventListener('keyup', this.windowOnKeyUpHandler)
-
-    this.loadVenues()
-    this.loadCategories()
-    this.loadPurchaseTimestamps()
+    EventBus.$on('session-change', this.recalculateIsLoggedIn)
+    this.recalculateIsLoggedIn()
   },
 
   destroyed () {
+    EventBus.$off('session-change', this.recalculateIsLoggedIn)
     window.removeEventListener('keyup', this.windowOnKeyUpHandler)
+  },
+
+  data () {
+    return {
+      isLoggedIn: false
+    }
   },
 
   computed: {
@@ -187,6 +198,33 @@ export default {
         })
     },
 
+    onLogoutClicked () {
+      const self = this
+
+      Api.getLogout()
+        .then(() => {
+          Session.setSessionId(null)
+          Session.setRememberMeToken(null)
+          EventBus.$emit('session-change')
+          self.$router.push('/login')
+        })
+        .catch(() => {
+          window.toast({
+            color: 'red',
+            text: self.$i18n.t('errors.apiCommunication')
+          })
+        })
+    },
+
+    recalculateIsLoggedIn () {
+      this.isLoggedIn = Session.isLoggedIn()
+      if (this.isLoggedIn) {
+        this.loadVenues()
+        this.loadCategories()
+        this.loadPurchaseTimestamps()
+      }
+    },
+
     windowOnKeyUpHandler (event) {
       if (event.altKey && event.ctrlKey) {
         switch (event.key.toLowerCase()) {
@@ -224,6 +262,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+#navigation-menu {
+  display: none;
 }
 
 #footer {

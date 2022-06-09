@@ -1,20 +1,43 @@
 import axios from 'axios'
 
+import Session from '@/utils/Session'
+import Base64 from '@/utils/Base64'
+
 const API_BASE = process.env.VUE_APP_API_URL
 
 export default class Api {
   static execute (options) {
-    return new Promise((resolve, reject) => {
-      axios(options)
-        .then(resp => {
-          if (typeof resp.status !== 'number') {
-            reject(`response statis is not a number`)
-            return
-          }
+    options = Api.addAuthenticationTo(options)
+    const hasAuthentication = typeof options.headers === 'object' 
+        && typeof options.headers.Authentication === 'string' && options.headers.Authentication !== ''
 
-          resolve(resp)
+    return new Promise((resolve, reject) => {
+      axios(options) // first try
+        .then(resp1 => resolve(resp1))
+        .catch(err1 => {
+          if (err1.response.status === 401 && hasAuthentication) {
+            const token = Session.getRememberMeToken()
+            if (token === null) {
+              reject(err1)
+              return
+            }
+
+            axios({ // try session continuance
+              method: 'post',
+              url: `${API_BASE}/auth/continue`,
+              data: { token: token },
+              headers: { Authentication: options.headers.Authentication }
+            })
+              .then(() => {
+                axios(options) // try the original again
+                  .then(resp3 => resolve(resp3))
+                  .catch(err3 => reject(err3))
+              })
+              .catch(err2 => reject(err2))
+          } else {
+            reject(err1)
+          }
         })
-        .catch(err => reject(err))
     })
   }
 
@@ -127,5 +150,38 @@ export default class Api {
       method: 'get',
       url: `${API_BASE}/statistics/overview/${year}/${month}`
     })
+  }
+
+  static postLogin (username, password, rememberMe = false) {
+    const pwd = Base64.encode(password)
+    return this.execute({
+      method: 'post',
+      url: `${API_BASE}/auth/login`,
+      data: {
+        username: username,
+        password: pwd,
+        remember_me: rememberMe
+      }
+    })
+  }
+
+  static getLogout () {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/auth/logout`
+    })
+  }
+
+  static addAuthenticationTo (options) {
+    const sessionId = Session.getSessionId()
+    if (sessionId === null) {
+      return options
+    }
+
+    if (typeof options['headers'] !== 'object') {
+      options['headers'] = {}
+    }
+    options['headers']['Authentication'] = sessionId
+    return options
   }
 }
