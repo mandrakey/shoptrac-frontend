@@ -5,7 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         checkout scm: [$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[credentialsId: 'scm-manager-mandrakey', url: 'https://scm.bleuelmedia.com/scm/repo/shoptrac/frontend']]]
-        sh 'npm run build && tar -cf shoptrac-frontend.tar dist && bzip2 shoptrac-frontend.tar'
+        sh 'npm install && npm run build && tar -cf shoptrac-frontend.tar dist && bzip2 shoptrac-frontend.tar'
         archiveArtifacts artifacts: 'shoptrac-frontend.tar.bz2'
       }
     }
