@@ -3,6 +3,7 @@ export default class Session {
   static #rememberMeTokenKey = 'rememberMe'
 
   static #storage = window.localStorage
+  static #user = null
 
   static getSessionId () {
     const sessionId = Session.#storage.getItem(Session.#sessionIdKey)
@@ -36,5 +37,26 @@ export default class Session {
 
   static isLoggedIn () {
     return Session.getSessionId() !== null
+  }
+
+  static getUser () {
+    return Session.#user
+  }
+
+  static setUser (user) {
+    if (user === null) {
+      Session.#user = null
+      return
+    }
+    
+    if (typeof user !== 'object' 
+        || typeof user._key !== 'string'
+        || typeof user.username !== 'string'
+        || typeof user.email !== 'string'
+        || typeof user.name !== 'string'
+        || typeof user.level !== 'number') {
+      throw new Error("Invalid user object")
+    }
+    Session.#user = user
   }
 }

@@ -73,6 +73,7 @@
 <script>
 import Api from 'api'
 
+import User from '@/model/User'
 import Session from '@/utils/Session'
 import EventBus from '@/utils/EventBus'
 
@@ -94,6 +95,12 @@ export default {
 
     onFormEnter () {
       this.loginStep1()
+    },
+
+    resetLoginData () {
+      Session.setSessionId(null)
+      Session.setRememberMeToken(null)
+      Session.setUser(null)
     },
 
     loginStep1 () {
@@ -130,18 +137,43 @@ export default {
             Session.setRememberMeToken(resp.data.remember_me_token)
           }
 
+          self.loginStep2()
+        })
+        .catch(() => self.cancelLogin())
+    },
+
+    loginStep2 () {
+      const self = this
+
+      Api.getProfile()
+        .then(resp => {
+          if (typeof resp !== 'object' || typeof resp.data !== 'object') {
+            self.cancelLogin()
+            return
+          }
+          
+          try {
+            Session.setUser(User.fromObject(resp.data))
+          } catch (err) {
+            self.cancelLogin()
+            return
+          }
+          
+          // Finish login
+          this.action = ''
           EventBus.$emit('session-change')
-          self.$router.push('/')
+          this.$router.push('/')
         })
-        .catch(() => {
-          window.toast({
-              text: self.$i18n.t('errors.invalidApiResponse'),
-              color: 'red'
-          })
-        })
-        .finally(() => {
-          self.action = ''
-        })
+        .catch(() => self.cancelLogin())
+    },
+
+    cancelLogin (errormsg = "errors.invalidApiResponse") {
+      this.resetLoginData()
+      this.action = ''
+      window.toast({
+        text: this.$i18n.t(errormsg),
+        color: 'red'
+      })
     }
   }
 }

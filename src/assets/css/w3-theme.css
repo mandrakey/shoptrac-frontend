@@ -38,7 +38,7 @@
     background: #a5a5a5;
 }
 
-.w3-form .w3-row {
+.w3-form .w3-row,.w3-cell-row {
     margin-bottom: 10px;
 }
 
@@ -67,6 +67,36 @@
 
 .w3-input:focus {
     outline: none;
+}
+
+.st-table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+.st-table > caption {
+    display: none;
+}
+.st-table thead {
+    background: #006e6d;
+    color: #fff;
+    border-bottom: 5px solid #000;
+}
+.st-table thead th {
+    padding: 10px;
+    padding-bottom: 2px;
+}
+.st-table thead tr:last-child th {
+    padding-bottom: 10px;
+}
+.st-table tbody tr.clickable {
+    cursor: pointer;
+}
+.st-table tbody tr.hoverable:hover {
+    background: #e7ffff;
+}
+
+.w3-table th:first-child {
+    padding-left: 10px;
 }
 
 /* General theme color styles */

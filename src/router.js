@@ -36,6 +36,13 @@ const routes = [
   {
     path: '/login',
     component: () => import('@/views/Login')
+  },
+  {
+    path: '/admin/users',
+    component: () => import('@/views/admin/Users'),
+    meta: {
+      requireLogin: true
+    }
   }
 ]
 const router = new VueRouter({ routes })

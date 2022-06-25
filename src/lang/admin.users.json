@@ -1,0 +1,35 @@
+{
+  "en": {
+    "Manage users": "Manage users",
+    "Add new user": "Add new user",
+    "Edit user": "Edit user",
+    "Loading users ...": "Loading users ...",
+
+    "List of existing users": "List of existing users",
+    "UUID": "UUID",
+    "Username": "Username",
+    "Name": "Name",
+    "Email address": "Email address",
+    "Level": "Level",
+    "User": "User",
+    "Administrator": "Administrator",
+    "Change the password": "Change the password",
+    "Password": "Password",
+    "Generate a random password": "Generate a random password",
+    "Confirmation": "Confirmation",
+    "Show the passwords": "Show the passwords",
+
+    "Delete user::Question": "Do you really want to delete this user? This action can not be undone!",
+
+    "The following problems exist with the entered information:": "The following problems exist with the entered information:",
+    "Adding user ...": "Adding user ...",
+    "Failed to add new user.": "Failed to add new user.",
+    "The new user has been added.": "The new user account has been added.",
+    "Updating user ...": "Updating user ...",
+    "Failed to update user.": "Failed to update user.",
+    "The user account has been updated.": "The user account has been updated.",
+    "Deleting user ...": "Deleting user ...",
+    "Failed to delete user.": "Failed to delete user.",
+    "The user account has been deleted.": "The user account has been deleted."
+  }
+}

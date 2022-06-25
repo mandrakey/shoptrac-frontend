@@ -198,4 +198,54 @@ export default class Api {
       status: 204
     }, 1100)
   }
+
+  static getUsers () {
+    Console.debug('getUsers()')
+
+    return this.fetch({
+      status: 200,
+      data: [
+        { _key: 'user1', username: 'jdoe', name: 'John Doe', email: 'jdoe@my.dau.fun', level: 99 },
+        { _key: 'user2', username: 'bleuel', name: 'Maurice Bleuel', email: 'mbleuel@my.dau.fun', level: 0 }
+      ]
+    }, 400)
+  }
+
+  static putUsers (user, password, confirmation) {
+    Console.debug(`putUser('${JSON.stringify(user)}', '${password}', '${confirmation}')`)
+
+    user._key = Api.randomString(5)
+    return this.fetch({
+      status: 200,
+      data: user
+    }, 1200)
+  }
+
+  static patchUsers (user, newPassword = null, confirmation = null) {
+    Console.debug(`patchUser('${JSON.stringify(user)}', '${newPassword}', '${confirmation}')`)
+
+    const time = newPassword !== null ? 1200 : 800
+
+    return this.fetch({
+      status: 204
+    }, 800)
+  }
+
+  static deleteUsers (key) {
+    Console.debug(`deleteUser('${key}')`)
+
+    return this.fetch({
+      status: 204
+    }, 500)
+  }
+
+  static randomString(length = 5) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz01234567890'
+    let res = ''
+    for (let i = 0; i < length; ++i) {
+      const r = parseInt(Math.random() * 100) % chars.length
+      res += chars[r]
+    }
+    return res
+  }
 }

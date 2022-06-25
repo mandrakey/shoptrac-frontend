@@ -229,6 +229,56 @@ export default class Api {
     })
   }
 
+  static getUsers () {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/users`
+    })
+  }
+
+  static putUsers (user, password, confirmation) {
+    if (typeof password !== 'string' || password === ''
+        || typeof confirmation !== 'string' || password !== confirmation) {
+      throw new Error('New password must be identical to its confirmation and not empty.')
+    }
+
+    return this.execute({
+      method: 'put',
+      url: `${API_BASE}/users`,
+      data: {
+        ...user,
+        password: Base64.encode(password),
+        confirmation: Base64.encode(confirmation)
+      }
+    })
+  }
+
+  static patchUsers (user, password, confirmation) {
+    if (password !== null) {
+      if (typeof password !== 'string' || password === ''
+          || typeof confirmation !== 'string' || password !== confirmation) {
+        throw new Error('New password must be identical to its confirmation and not empty.')
+      }
+    }
+
+    return this.execute({
+      method: 'patch',
+      url: `${API_BASE}/users`,
+      data: {
+        ...user,
+        password: Base64.encode(password),
+        confirmation: Base64.encode(confirmation)
+      }
+    })
+  }
+
+  static deleteUsers (key) {
+    return this.execute({
+      method: 'delete',
+      url: `${API_BASE}/users/${key}`
+    })
+  }
+
   static addAuthenticationTo (options) {
     const sessionId = Session.getSessionId()
     if (sessionId === null) {

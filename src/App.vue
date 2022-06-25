@@ -7,6 +7,7 @@
       "purchases": "Purchases",
       "statistics": "Statistics",
       "profile": "Profile",
+      "admin_users": "User management",
       "logout": "Log out"
     }
   }
@@ -39,7 +40,13 @@
             <router-link to="/profile"
                 :class="['w3-button', ($route.path === '/profile' ? 'background-primary-2' : 'w3-theme-dark')]">
               {{ $t('nav.profile') }}
-            </router-link>
+            </router-link>&nbsp;
+            <span style="display: none;" :class="[{ 'w3-show-inline-block': isAdmin }]">
+              <router-link to="/admin/users"
+                :class="['w3-button', ($route.path === '/admin/users' ? 'background-primary-2' : 'w3-theme-dark')]">
+                {{ $t('nav.admin_users') }}
+              </router-link>&nbsp;
+            </span>
             &nbsp;&nbsp;
             <button class="w3-button w3-theme-dark" @click="onLogoutClicked()">
               {{ $t('nav.logout') }}
@@ -77,6 +84,7 @@ import Session from '@/utils/Session'
 
 import Venue from '@/model/Venue'
 import Category from '@/model/Category'
+import User from '@/model/User'
 
 import ToastView from '@/components/ToastView'
 
@@ -106,7 +114,8 @@ export default {
 
   data () {
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
+      isAdmin: false
     }
   },
 
@@ -203,6 +212,33 @@ export default {
         })
     },
 
+    loadUser () {
+      const self = this
+      if (Session.getUser() !== null) {
+        self.isAdmin = Session.getUser().level === 99
+        return
+      }
+
+      Api.getProfile()
+        .then(resp => {
+          if (typeof resp !== 'object' || typeof resp.data !== 'object') {
+            throw new Error('Failed to load user profile.')
+          }
+
+          const user = User.fromObject(resp.data)
+          self.isAdmin = user.level === 99
+          Session.setUser(user)
+        })
+        .catch(err => {
+          Console.error(err)
+          window.toast({
+            text: self.$i18n.t('errors.failedToLoadUserProfile'),
+            color: 'red'
+          })
+          self.onLogoutClicked()
+        })
+    },
+
     onLogoutClicked () {
       const self = this
 
@@ -224,11 +260,14 @@ export default {
     recalculateIsLoggedIn () {
       this.isLoggedIn = Session.isLoggedIn()
       if (this.isLoggedIn) {
+        this.loadUser()
         this.loadVenues()
         this.loadCategories()
         this.loadPurchaseTimestamps()
       } else {
-        self.$router.push('/login')
+        if (this.$router.path !== '/login') {
+          this.$router.push('/login')
+        }
       }
     },
 
