@@ -5,8 +5,9 @@ pipeline {
     stage('Build') {
       steps {
         checkout scm: [$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[credentialsId: 'scm-manager-mandrakey', url: 'https://scm.bleuelmedia.com/scm/repo/shoptrac/frontend']]]
-        configFileProvider([configFile(fileId: 'd547b34e-eab1-4a22-81d7-ddc2ba9ce198', targetLocation: '.env.production')])
-        sh 'npm install && npm run build && tar -cf shoptrac-frontend.tar dist && bzip2 shoptrac-frontend.tar'
+        configFileProvider([configFile(fileId: 'shoptrac-frontend-env-production', targetLocation: '.env.production')]) {
+          sh 'npm install && npm run build && tar -cf shoptrac-frontend.tar dist && bzip2 shoptrac-frontend.tar'
+        }
         archiveArtifacts artifacts: 'shoptrac-frontend.tar.bz2'
       }
     }
