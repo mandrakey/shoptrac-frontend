@@ -33,7 +33,11 @@ export default class Api {
                   .then(resp3 => resolve(resp3))
                   .catch(err3 => reject(err3))
               })
-              .catch(err2 => reject(err2))
+              .catch(err2 => {
+                Session.setSessionId(null)
+                Session.setRememberMeToken(null)
+                reject(err2)
+              })
           } else {
             reject(err1)
           }
@@ -169,6 +173,59 @@ export default class Api {
     return this.execute({
       method: 'get',
       url: `${API_BASE}/auth/logout`
+    })
+  }
+
+  static getProfile () {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/profile`
+    })
+  }
+
+  static patchProfile (data = null) {
+    if (typeof data !== 'object' || data === null) {
+      throw new Error('Profile update data must be an object.')
+    }
+
+    const params = {}
+    if (typeof data.name === 'string' && data.name !== '') {
+      params.name = data.name
+    }
+    if (typeof data.email === 'string' && data.email !== '') {
+      params.email = data.email
+    }
+
+    return this.execute({
+      method: 'patch',
+      url: `${API_BASE}/profile`,
+      data: params
+    })
+  }
+
+  static postProfileUpdatePassword (currentPassword, newPassword, confirmation) {
+    if (typeof currentPassword !== 'string') {
+      throw new Error('Current password must be a string.')
+    }
+    if (typeof newPassword !== 'string') {
+      throw new Error('New password must be a string.')
+    }
+    if (typeof confirmation !== 'string' || confirmation !== newPassword) {
+      throw new Error('New password must be identical to its confirmation.')
+    }
+
+    const curPass = Base64.encode(currentPassword)
+    const newPass = Base64.encode(newPassword)
+    const conf = Base64.encode(confirmation)
+
+    return this.execute({
+      method: 'post',
+      url: `${API_BASE}/profile/updatePassword`,
+      data: {
+        'old_password': curPass,
+        'password': newPass,
+        'confirmation': conf
+      }
     })
   }
 

@@ -164,4 +164,38 @@ export default class Api {
       status: 201
     }, 100)
   }
+
+  static getProfile () {
+    Console.debug('getProfile()')
+
+    return this.fetch({
+      status: 200,
+      data: {
+        _key: 'user1',
+        username: 'jdoe',
+        email: 'jdoe@my.dau.fun',
+        name: 'John Doe',
+        level: 99
+      }
+    }, 200)
+  }
+
+  static patchProfile (data = null) {
+    if (typeof data !== 'object' || data === null) {
+      throw new Error('Profile update data must be an object.')
+    }
+
+    Console.log(`patchProfile('${JSON.stringify(data)}')`)
+    return this.fetch({
+      status: 204
+    }, 500)
+  }
+
+  static postProfileUpdatePassword (currentPassword, newPassword, confirmation) {
+    Console.debug(`postProfileUpdatePassword('${currentPassword}', '${newPassword}', '${confirmation}')`)
+
+    return this.fetch({
+      status: 204
+    }, 1100)
+  }
 }

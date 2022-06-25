@@ -6,6 +6,7 @@
     "delete": "Delete",
     "currencySymbol": "EUR",
     "N/A": "N/A",
+    "Any": "Any",
 
     "category": "Category",
     "allCategories": "All categories",
@@ -35,6 +36,11 @@
       "save": "Save",
       "delete": "Delete",
       "cancel": "Cancel"
+    },
+
+    "userlevels": {
+      "0": "User",
+      "99": "Administrator"
     },
 
     "errors": {

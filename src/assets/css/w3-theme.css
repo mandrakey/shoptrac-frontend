@@ -65,6 +65,10 @@
     outline: none;
 }
 
+.w3-input:focus {
+    outline: none;
+}
+
 /* General theme color styles */
 .w3-theme-l5 {color:#000 !important; background-color:#e7ffff !important}
 .w3-theme-l4 {color:#000 !important; background-color:#affffe !important}

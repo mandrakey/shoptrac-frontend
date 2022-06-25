@@ -6,6 +6,7 @@
       "settings": "Settings",
       "purchases": "Purchases",
       "statistics": "Statistics",
+      "profile": "Profile",
       "logout": "Log out"
     }
   }
@@ -34,6 +35,10 @@
             <router-link to="/statistics"
                 :class="['w3-button', ($route.path === '/statistics' ? 'background-primary-2' : 'w3-theme-dark')]">
               {{ $t('nav.statistics') }}
+            </router-link>&nbsp;
+            <router-link to="/profile"
+                :class="['w3-button', ($route.path === '/profile' ? 'background-primary-2' : 'w3-theme-dark')]">
+              {{ $t('nav.profile') }}
             </router-link>
             &nbsp;&nbsp;
             <button class="w3-button w3-theme-dark" @click="onLogoutClicked()">
@@ -222,6 +227,8 @@ export default {
         this.loadVenues()
         this.loadCategories()
         this.loadPurchaseTimestamps()
+      } else {
+        self.$router.push('/login')
       }
     },
 

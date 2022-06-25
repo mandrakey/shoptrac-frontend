@@ -1,0 +1,25 @@
+{
+  "en": {
+    "Profile Settings": "Profile Settings",
+    "Change your password": "Change your password",
+    "Current Password": "Current password",
+    "New Password": "New Password",
+    "Confirmation": "Confirmation",
+    "Show passwords": "Show passwords",
+    "Update Password": "Update Password",
+    "Updating password ...": "Updating password ...",
+    "Password has been updated successfully.": "Password has been updated successfully.",
+    "Failed to update the password.": "Failed to update the password.",
+
+    "Loading profile data ...": "Loading profile data ...",
+    "Change profile data": "Change profile data",
+    "Full name": "Full name",
+    "Email address": "Email address",
+    "Update Profile": "Update Profile",
+    "Updating profile ...": "Updating profile ...",
+    "Profile has been updated successfully.": "Profile has been updated successfully.",
+    "Failed to update the profile.": "Failed to update the profile.",
+
+    "The following problems exist with the entered information:": "The following problems exist with the entered information:"
+  }
+}
