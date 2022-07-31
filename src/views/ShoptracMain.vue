@@ -38,6 +38,13 @@
             </div>
 
             <div class="w3-row margin-top-5">
+                <div class="w3-third st-label">{{ $t('shopper') }}:</div>
+                <div class="w3-twothird">
+                    <shopper-select ref="shopper-select" :items="[]" @selected="changeCurrentShopper($event)" />
+                </div>
+            </div>
+
+            <div class="w3-row margin-top-5">
                 <div class="w3-third st-label">{{ $t('date') }}:</div>
                 <div class="w3-twothird">
                     <input class="w3-input w3-border background-primary-4 hover-primary-4 w3-text-white date"
@@ -90,6 +97,7 @@ import PurchaseList from '@/components/PurchaseList'
 import Keypad from '@/components/Keypad'
 import VenueSelect from '@/components/VenueSelect'
 import CategorySelect from '@/components/CategorySelect'
+import ShopperSelect from '@/components/ShopperSelect'
 import ModalDeletePurchase from '@/components/ModalDeletePurchase'
 import ModalEditPurchase from '@/components/ModalEditPurchase'
 import ModalAction from '@/components/ModalAction'
@@ -102,6 +110,7 @@ export default {
         Keypad,
         VenueSelect,
         CategorySelect,
+        ShopperSelect,
         ModalDeletePurchase,
         ModalEditPurchase,
         ModalAction,
@@ -117,6 +126,7 @@ export default {
             currentYear: 2019,
             currentVenue: -1,
             currentCategory: -1,
+            currentShopper: -1,
 
             newPurchaseDate: moment().format('YYYY-MM-DD')
         }
@@ -130,6 +140,7 @@ export default {
         EventBus.$on('focus-date', this.onFocusDate)
         EventBus.$on('focus-venue', this.onFocusVenue)
         EventBus.$on('focus-category', this.onFocusCategory)
+        EventBus.$on('focus-shopper', this.onFocusShopper)
 
         this.scheduleReload()
     },
@@ -146,6 +157,7 @@ export default {
         EventBus.$off('focus-date', this.onFocusDate)
         EventBus.$off('focus-venue', this.onFocusVenue)
         EventBus.$off('focus-category', this.onFocusCategory)
+        EventBus.$off('focus-shopper', this.onFocusShopper)
     },
 
     methods: {
@@ -190,6 +202,7 @@ export default {
             var p = new Purchase()
             p.category = self.currentCategory
             p.venue = self.currentVenue
+            p.shopper = self.currentShopper
             p.date = self.newPurchaseDate
             p.sum = event.sum
 
@@ -247,6 +260,13 @@ export default {
         changeCurrentCategory (event) {
             if (typeof event.category === 'string') {
                 this.currentCategory = event.category
+                this.scheduleReload() // reset reload timer after user input
+            }
+        },
+
+        changeCurrentShopper (event) {
+            if (typeof event.shopper === 'string') {
+                this.currentShopper = event.shopper
                 this.scheduleReload() // reset reload timer after user input
             }
         },
@@ -326,6 +346,10 @@ export default {
 
         onFocusCategory () {
             this.$refs['category-select'].focus()
+        },
+
+        onFocusShopper () {
+            this.$refs['shopper-select'].focus()
         }
     }
 }

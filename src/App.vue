@@ -84,6 +84,7 @@ import Session from '@/utils/Session'
 
 import Venue from '@/model/Venue'
 import Category from '@/model/Category'
+import Shopper from '@/model/Shopper'
 import User from '@/model/User'
 
 import ToastView from '@/components/ToastView'
@@ -186,6 +187,31 @@ export default {
         })
     },
 
+    loadShoppers () {
+      const self = this
+
+      Api.getShoppers()
+        .then(resp => {
+          if (!(resp.data instanceof Array)) {
+            throw new Error()
+          }
+
+          const shoppers = {}
+          resp.data.forEach(row => {
+            const s = Shopper.fromObject(row)
+            shoppers[s._key] = s
+          })
+          store.commit('shoppers', shoppers)
+          EventBus.$emit('shoppers-loaded')
+        })
+        .catch(() => {
+          window.toast({
+            text: self.$i18n.t('errors.apiCommunication'),
+            color: 'red'
+          })
+        })
+    },
+
     loadPurchaseTimestamps () {
       var self = this
 
@@ -263,6 +289,7 @@ export default {
         this.loadUser()
         this.loadVenues()
         this.loadCategories()
+        this.loadShoppers()
         this.loadPurchaseTimestamps()
       } else {
         if (this.$router.path !== '/login') {
@@ -285,6 +312,9 @@ export default {
             break
           case 'c':
             EventBus.$emit('focus-category')
+            break
+          case 'o':
+            EventBus.$emit('focus-shopper')
             break
         }
       }

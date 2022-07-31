@@ -40,6 +40,13 @@
                     </div>
 
                     <div class="w3-row margin-top-5">
+                        <div class="w3-col w3-third w3-padding">{{ $t('shopper') }}:</div>
+                        <div class="w3-col w3-twothird">
+                            <shopper-select ref="shopper-select" @selected="changeShopper($event)" />
+                        </div>
+                    </div>
+
+                    <div class="w3-row margin-top-5">
                         <div class="w3-col w3-third w3-padding">{{ $t('date') }}:</div>
                         <div class="w3-twothird">
                             <input class="w3-input w3-border background-primary-4 hover-primary-4 w3-text-white date"
@@ -98,12 +105,14 @@ import Purchase from '@/model/Purchase'
 
 import VenueSelect from '@/components/VenueSelect'
 import CategorySelect from '@/components/CategorySelect'
+import ShopperSelect from '@/components/ShopperSelect'
 import Keypad from '@/components/Keypad'
 
 export default {
     components: {
         VenueSelect,
         CategorySelect,
+        ShopperSelect,
         Keypad
     },
 
@@ -149,6 +158,7 @@ export default {
             this.$refs['keypad'].setValue(purchase.sum)
             this.$refs['venue-select'].selectByKey(purchase.venue)
             this.$refs['category-select'].selectByKey(purchase.category)
+            this.$refs['shopper-select'].selectByKey(purchase.shopper)
             
         },
 
@@ -217,6 +227,12 @@ export default {
                 if (sum >= 0) {
                     this.purchase.sum = event.sum
                 }
+            }
+        },
+
+        changeShopper (event) {
+            if (typeof event.shopper === 'string') {
+                this.purchase.shopper = event.shopper
             }
         }
     }

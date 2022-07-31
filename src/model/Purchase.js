@@ -3,6 +3,7 @@ export default class Purchase {
     this._key = ''
     this.category = ''
     this.venue = ''
+    this.shopper = ''
     this.date = ''
     this.month = -1
     this.year = -1
@@ -20,6 +21,9 @@ export default class Purchase {
     }
     if (typeof o.venue !== 'string' || o.venue === '') {
       problems.push('venue')
+    }
+    if (typeof o.shopper !== 'string' || o.shopper === '') {
+      problems.push('shopper')
     }
     if (typeof o.date !== 'string' || o.datetime === '') {
       problems.push('date')

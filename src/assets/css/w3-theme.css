@@ -99,6 +99,17 @@
     padding-left: 10px;
 }
 
+.st-shopper-avatar-32 {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+.st-shopper-avatar-16 {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+}
+
 /* General theme color styles */
 .w3-theme-l5 {color:#000 !important; background-color:#e7ffff !important}
 .w3-theme-l4 {color:#000 !important; background-color:#affffe !important}

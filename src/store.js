@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     user: null,
     venues: [],
     categories: [],
+    shoppers: [],
     purchaseTimestamps: []
   },
 
@@ -20,6 +21,10 @@ const store = new Vuex.Store({
     categories (state, data) {
       // todo: Add validation logic
       state.categories = data
+    },
+
+    shoppers (state, data) {
+      state.shoppers = data
     },
 
     setPurchaseTimestamps (state, data) {

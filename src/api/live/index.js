@@ -279,6 +279,36 @@ export default class Api {
     })
   }
 
+  static getShoppers () {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/shoppers`
+    })
+  }
+
+  static putShoppers (shopper) {
+    return this.execute({
+      method: 'put',
+      url: `${API_BASE}/shoppers`,
+      data: shopper
+    })
+  }
+
+  static patchShoppers (shopper) {
+    return this.execute({
+      method: 'patch',
+      url: `${API_BASE}/shoppers/${shopper._key}`,
+      data: shopper
+    })
+  }
+
+  static deleteShoppers (shopper) {
+    return this.execute({
+      method: 'delete',
+      url: `${API_BASE}/shoppers/${shopper._key}`
+    })
+  }
+
   static addAuthenticationTo (options) {
     const sessionId = Session.getSessionId()
     if (sessionId === null) {

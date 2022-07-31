@@ -13,7 +13,8 @@
 
     "You need to provide a username": "You need to provide a username.",
     "You need to provide a password": "You need to provide a password.",
-    "Login successful!": "Login successful!"
+    "Login successful!": "Login successful!",
+    "Failed to log in: Please confirm username and password.": "Failed to log in: Please confirm username and password."
   }
 }
 </i18n>
@@ -139,7 +140,12 @@ export default {
 
           self.loginStep2()
         })
-        .catch(() => self.cancelLogin())
+        .catch(err => {
+          const msg = err.response.status === 401
+            ? "Failed to log in: Please confirm username and password."
+            : "errors.invalidApiResponse"
+          self.cancelLogin(msg)
+        })
     },
 
     loginStep2 () {
@@ -167,7 +173,9 @@ export default {
         .catch(() => self.cancelLogin())
     },
 
-    cancelLogin (errormsg = "errors.invalidApiResponse") {
+    cancelLogin (err = null) {
+      const errormsg = typeof err !== 'undefined' && err !== null ? err : "errors.invalidApiResponse"
+
       this.resetLoginData()
       this.action = ''
       window.toast({

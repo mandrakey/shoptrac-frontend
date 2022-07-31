@@ -3,6 +3,7 @@ import Console from '@/utils/Console'
 import purchasesList from './data/purchasesList'
 import venuesList from './data/venues'
 import categoriesList from './data/categories'
+import shoppersList from './data/shoppers'
 import statistics from './data/statistics'
 
 import Purchase from '@/model/Purchase'
@@ -233,6 +234,41 @@ export default class Api {
 
   static deleteUsers (key) {
     Console.debug(`deleteUser('${key}')`)
+
+    return this.fetch({
+      status: 204
+    }, 500)
+  }
+
+  static getShoppers() {
+    Console.debug('getShoppers()')
+
+    return this.fetch({
+      status: 200,
+      data: shoppersList
+    }, 600)
+  }
+
+  static putShoppers(shopper) {
+    Console.debug(`putShoppers('${JSON.stringify(shopper)}')`)
+
+    shopper._key = Api.randomString()
+    return this.fetch({
+      status: 200,
+      data: shopper
+    }, 400)
+  }
+
+  static patchShoppers(shopper) {
+    Console.debug(`patchShoppers('${JSON.stringify(shopper)}')`)
+
+    return this.fetch({
+      status: 204
+    }, 700)
+  }
+
+  static deleteShoppers(shopper) {
+    Console.debug(`deleteShoppers('${JSON.stringify(shopper)}')`)
 
     return this.fetch({
       status: 204

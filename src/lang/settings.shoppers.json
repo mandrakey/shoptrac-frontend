@@ -1,0 +1,33 @@
+{
+  "en": {
+    "Shoppers": "Shoppers",
+    "Add shopper": "Add shopper",
+    "Edit shopper": "Edit shopper",
+    "No shoppers found": "No shoppers found",
+
+    "Edit this item": "Edit this item",
+    "Delete this item": "Delete this item",
+
+    "Name": "Name",
+    "Image": "Image",
+    "Select image": "Select image",
+    "Remove image": "Remove image",
+    "Adding shopper ...": "Adding shopper ...",
+    "Shopper has been added": "Shopper has been added",
+    "Updating shopper ...": "Updating shopper ...",
+    "Shopper has been updated": "Shopper has been updated",
+
+    "Delete shopper": "Delete shopper",
+    "Delete shopper::Info1": "Do you really want to delete the following shopper?",
+    "Delete shopper::Info2": "This action can not be undone.",
+    "Deleting shopper ...": "Deleting shopper ...",
+    "Shopper has been deleted": "Shopper has been deleted",
+
+    "No valid shopper supplied for editing": "No valid shopper supplied for editing",
+    "Failed to load image": "Failed to load image",
+    "Please correct the following issues": "Please correct the following issues",
+    "Please enter a shopper name": "Please enter a shopper name",
+    "Failed to delete shopper": "Failed to delete shopper",
+    "Failed to load shoppers": "Failed to load shoppers"
+  }
+}

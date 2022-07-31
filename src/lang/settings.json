@@ -1,0 +1,10 @@
+{
+  "en": {
+    "settings": "Settings",
+    "settingsDescription": "Here you can edit categories and venues.",
+
+    "Venues": "Venues",
+    "Categories": "Categories",
+    "Shoppers": "Shoppers"
+  }
+}
