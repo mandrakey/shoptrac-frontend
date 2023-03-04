@@ -239,8 +239,8 @@ export default {
       // Filter purchases
       var purchaseList = self.purchases.filter(it => {
         return it.year === self.currentYear &&
-          (self.currentVenue === -1 || it.venue === self.currentVenue) && 
-          (self.currentCategory === -1 || it.category === self.currentCategory)
+          (self.currentVenue == -1 || it.venue === self.currentVenue) && 
+          (self.currentCategory == -1 || it.category === self.currentCategory)
       })
 
       // Calculate purchase counts and sums
