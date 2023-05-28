@@ -45,7 +45,7 @@
                     </div>
                     <div class="w3-col w3-twothird">
                         <input type="file" class="file-input" ref="FileInput" @change="fileInput_Change">
-                        <img :src="`data:image/png;base64,${venue.image}`" class="w3-border venue-image">
+                        <img :src="`data:image/png;base64,${venue.image}`" class="w3-border venue-image" :alt="t('venue')">
                         <button class="w3-button st-button-theme st-button-theme-hover w3-small"
                                 @click="selectImage_Click()">
                             {{ $t('selectImage') }}

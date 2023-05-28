@@ -161,9 +161,12 @@ export default {
 
     onRandomPasswordClicked () {
       const chars = 'CsJXNFIo!3MtQPGvpwkEjm9huBqR$*D7leS+2xH0Wgzb1K68da4ZfVLyTr#YA5-Uc&iOn'
+      const crypto = window.crypto || window.msCrypto
       let res = ''
+      let arr = new Uint8Array(1);
       for (let i = 0; i < 12; ++i) {
-        const r = parseInt(Math.random() * 100) % chars.length
+        crypto.getRandomValues(arr)
+        const r = arr[0] % chars.length
         res += chars[r]
       }
       

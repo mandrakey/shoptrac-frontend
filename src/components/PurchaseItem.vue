@@ -12,7 +12,7 @@
     <div :class="['w3-row', 'purchase-container', { 'w3-theme-l1': selected }]"
         @click="$emit('click', { purchase: purchase })">
         <div class="w3-col l2 m2">
-            <img v-if="venueImage !== ''" :src="venueImage">
+            <img v-if="venueImage !== ''" :src="venueImage" :alt="`${venueName} logo`">
             <span v-else>&nbsp;</span> <!-- put default image here -->
         </div>
         <div :class="['w3-col', selected ? 'l6 m5' : 'l8 m9']">
@@ -27,8 +27,8 @@
         </div>
         <div class="w3-col l2 m2 w3-right-align w3-small padding-top-5">
             <div class="w3-center">
-                <img class="st-shopper-avatar-16" v-if="shopperImage !== ''" :src="`data:image/png;base64,${shopperImage}`">
-                <img class="st-shopper-avatar-16" v-else src="@/assets/img/image-solid.svg">
+                <img class="st-shopper-avatar-16" v-if="shopperImage !== ''" :src="`data:image/png;base64,${shopperImage}`" :alt="t('shopper')">
+                <img class="st-shopper-avatar-16" v-else src="@/assets/img/image-solid.svg" :alt="t('shopper')">
                 <br>
                 {{ shopperName }}
             </div>

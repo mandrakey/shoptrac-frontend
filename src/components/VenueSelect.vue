@@ -5,7 +5,7 @@
         <div class="w3-cell-row st-select" @click="focus(null)">
             <div class="w3-cell w3-cell-middle" style="max-width: 32px;">
                 <img v-if="typeof selected.image !== 'undefined' && selected.image !== ''"
-                        :src="`data:image/png;base64,${selected.image}`" width="32" height="32">
+                        :src="`data:image/png;base64,${selected.image}`" width="32" height="32" :alt="`${selectedName} logo`">
             </div>
             <div class="w3-cell w3-cell-bottom">
                 <input type="text" class="w3-input w3-border-0" v-model="selectedName"
@@ -20,7 +20,7 @@
                         @click="selectByKey(v._key)">
                     <img v-if="typeof v.image !== 'undefined' && v.image !== ''"
                             :src="`data:image/png;base64,${v.image}`"
-                            width="32" height="32">
+                            width="32" height="32" :alt="`${selectedName} logo`">
                     {{ v.name }}
                 </a>
             </span>

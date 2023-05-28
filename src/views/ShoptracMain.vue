@@ -238,11 +238,11 @@ export default {
                         })
                     }
                 })
-                .catch(err => {
+                .catch(() => {
                     window.toast({
                         color: 'red',
                         title: self.$i18n.t('errors.apiCommunication'),
-                        text: `${err}`,
+                        text: self.$i18n.t('failedToSavePurchase'),
                         timeout: 0
                     })
                 })

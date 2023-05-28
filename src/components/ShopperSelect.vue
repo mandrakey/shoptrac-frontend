@@ -5,8 +5,8 @@
   <div class="w3-block">
     <div class="w3-cell-row st-select" @click="focus(null)">
       <div class="w3-cell w3-cell-middle" style="max-width: 32px;">
-        <img class="st-shopper-avatar-32" v-if="selected.image !== ''" :src="`data:image/png;base64,${selected.image}`">
-        <img class="st-shopper-avatar-32" v-else src="@/assets/img/image-solid.svg">
+        <img class="st-shopper-avatar-32" v-if="selected.image !== ''" :src="`data:image/png;base64,${selected.image}`" :alt="t('shopper')">
+        <img class="st-shopper-avatar-32" v-else src="@/assets/img/image-solid.svg" :alt="t('shopper')">
       </div>
       <div class="w3-cell w3-cell-bottom">
         <input type="text" class="w3-input w3-border-0" v-model="selectedName" ref="SelectedName"
@@ -18,8 +18,8 @@
       <span v-for="s in Object.values(visibleShoppers)" :key="s._key">
         <a :class="['w3-button', 'w3-bar-item', { 'hovered-shopper': hoveredShopper === s._key }]"
             @click="selectByKey(s._key)">
-          <img class="st-shopper-avatar-32" v-if="s.image !== ''" :src="`data:image/png;base64,${s.image}`">
-          <img class="st-shopper-avatar-32" v-else src="@/assets/img/image-solid.svg">
+          <img class="st-shopper-avatar-32" v-if="s.image !== ''" :src="`data:image/png;base64,${s.image}`" :alt="t('shopper')">
+          <img class="st-shopper-avatar-32" v-else src="@/assets/img/image-solid.svg" :alt="t('shopper')">
             {{ s.name }}
         </a>
       </span>

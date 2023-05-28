@@ -26,7 +26,7 @@
           </div>
           <div class="w3-cell">
             <input type="file" class="file-input" ref="FileInput" @change="onFileInputChanged($event)">
-            <img :src="`data:image/png;base64,${shopper.image}`" class="w3-border shopper-image">
+            <img :src="`data:image/png;base64,${shopper.image}`" class="w3-border shopper-image" :alt="t('shopper')">
             <button class="w3-button st-button-theme st-button-theme-hover w3-small display-inline-block"
                 @click="onSelectImageClicked()">
               {{ $t('Select image') }}

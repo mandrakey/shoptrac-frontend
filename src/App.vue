@@ -65,11 +65,8 @@
             <p class="w3-display-center">Copyright &copy; 2018-2023 shoptrac contributors</p>
         </div>
         <div class="w3-third w3-right-align st-display-right">
-            <a href="https://github.com/mandrakey/shoptrac" target="_blank">
+            <a href="https://github.com/mandrakey/shoptrac" target="_blank" rel="noopener">
                 <img src="@/assets/img/github.png" alt="Find shoptrac on Github">
-            </a>
-            <a href="https://twitter.com/shoptracapp" target="_blank">
-                <img src="@/assets/img/twitter.png" alt="Find shoptrac on Twitter">
             </a>
         </div>
     </div>
