@@ -1,0 +1,5 @@
+sonar-scanner \
+  -Dsonar.projectKey=Shoptrac-Frontend \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=https://sq.top-web.info \
+  -Dsonar.login=
