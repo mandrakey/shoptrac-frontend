@@ -48,7 +48,7 @@ export default {
     },
 
     mounted () {
-        var d = new Date()
+        const d = new Date()
         this.month = d.getMonth() + 1
         this.year = d.getFullYear()
     },

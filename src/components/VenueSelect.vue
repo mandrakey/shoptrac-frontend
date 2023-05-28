@@ -91,7 +91,7 @@ export default {
     },
 
     mounted () {
-        var self = this
+        const self = this
 
         EventBus.$on('venues-loaded', self.preselect)
         self.preselect()

@@ -80,10 +80,10 @@ export default {
   },
 
   mounted () {
-    var self = this
+    const self = this
 
-    var monthsRaw = self.$i18n.t('months')
-    for (var i in monthsRaw) {
+    const monthsRaw = self.$i18n.t('months')
+    for (const i in monthsRaw) {
       self.months.push(monthsRaw[i])
     }
 
@@ -92,7 +92,7 @@ export default {
 
   methods: {
     loadStatisticsData () {
-      var self = this
+      const self = this
 
       self.loading = true
       Api.getPurchasesUnfiltered()
@@ -149,7 +149,7 @@ export default {
     },
 
     createPurchasesPerMonthChart () {
-      var self = this
+      const self = this
 
       self.chartData = {
         labels: self.months,
@@ -207,7 +207,7 @@ export default {
         }
       }
 
-      var ctx = self.$refs['chartPurchasesPerMonth']
+      const ctx = self.$refs['chartPurchasesPerMonth']
       ctx.height = 100;
       self.chart = new Chart(
         ctx,
@@ -222,7 +222,7 @@ export default {
     },
 
     updatePurchasesPerMonthChart () {
-      var self = this
+      const self = this
 
       if (self.chart === null) {
         return
@@ -237,28 +237,28 @@ export default {
       }
 
       // Filter purchases
-      var purchaseList = self.purchases.filter(it => {
+      const purchaseList = self.purchases.filter(it => {
         return it.year === self.currentYear &&
           (self.currentVenue == -1 || it.venue === self.currentVenue) && 
           (self.currentCategory == -1 || it.category === self.currentCategory)
       })
 
       // Calculate purchase counts and sums
-      var counts = []
-      var sums = []
-      var maxCount = 0
-      var maxSum = 0
-      for (var i = 1; i < 13; ++i) {
-        var tmp = purchaseList.filter(it => it.month === i)
+      const counts = []
+      const sums = []
+      let maxCount = 0
+      let maxSum = 0
+      for (let i = 1; i < 13; ++i) {
+        const tmp = purchaseList.filter(it => it.month === i)
 
-        var cnt = tmp.length
+        const cnt = tmp.length
         counts.push(cnt)
         if (cnt > maxCount) {
           maxCount = cnt
         }
 
-        var sum = tmp.reduce((current, next) => {
-          var v = parseFloat(next.sum)
+        const sum = tmp.reduce((current, next) => {
+          const v = parseFloat(next.sum)
           return isNaN(v) ? current : current + v
         }, 0)
         sums.push(sum.toFixed(2))

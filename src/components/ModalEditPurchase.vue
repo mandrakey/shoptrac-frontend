@@ -129,7 +129,7 @@ export default {
 
     watch: {
         'purchase.date' (n) {
-            var m = moment(n)
+            const m = moment(n)
             this.purchase.month = m.month() + 1
             this.purchase.year = m.year()
         }
@@ -169,7 +169,7 @@ export default {
         },
 
         save_Click () {
-            var self = this
+            const self = this
 
             self.action = `${self.$i18n.t('savingPurchase')} ...`
             Api.updatePurchase(this.purchase)
@@ -223,7 +223,7 @@ export default {
 
         changeSum (event) {
             if (typeof event.sum !== 'undefined') {
-                var sum = parseFloat(event.sum)
+                const sum = parseFloat(event.sum)
                 if (sum >= 0) {
                     this.purchase.sum = event.sum
                 }

@@ -66,13 +66,13 @@ export default {
 
     methods: {
         addMessage (event) {
-            var self = this
+            const self = this
 
             if (typeof event.message !== 'object') {
                 throw 'Cannot process toast event without message object.'
             }
 
-            var msg = self.createMessage(event.message)
+            const msg = self.createMessage(event.message)
             self.messages.push(msg)
 
             if (msg.timeout > 0) {
@@ -81,9 +81,9 @@ export default {
         },
 
         removeMessage (message) {
-            var self = this
-            for (var i = 0; i < self.messages.length; ++i) {
-                var msg = self.messages[i]
+            const self = this
+            for (let i = 0; i < self.messages.length; ++i) {
+                const msg = self.messages[i]
                 if (msg.id === message.id) {
                     self.messages.splice(i, 1)
                     return

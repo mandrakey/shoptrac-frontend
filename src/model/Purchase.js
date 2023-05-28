@@ -12,7 +12,7 @@ export default class Purchase {
 
   static fromObject (o) {
     // Check necessary data
-    var problems = []
+    const problems = []
     if (typeof o._key !== 'string' || o._key === '') {
       problems.push('key')
     }
@@ -43,7 +43,7 @@ export default class Purchase {
     }
     
     // Copy possible values
-    var res = new Purchase()
+    const res = new Purchase()
     Object.keys(o).forEach(k => {
       if (typeof o[k] !== 'undefined') {
         res[k] = o[k]

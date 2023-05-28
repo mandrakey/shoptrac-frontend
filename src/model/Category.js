@@ -6,7 +6,7 @@ export default class Category {
 
   static fromObject (o) {
     // Check necessary data
-    var problems = []
+    const problems = []
     if (typeof o._key !== 'string' || o._key === '') {
       problems.push('key')
     }
@@ -19,7 +19,7 @@ export default class Category {
     }
 
     // Copy possible values
-    var res = new Category()
+    const res = new Category()
     Object.keys(o).forEach(k => {
       if (typeof o[k] !== 'undefined') {
         res[k] = o[k]

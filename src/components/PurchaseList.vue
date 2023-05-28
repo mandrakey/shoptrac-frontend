@@ -64,7 +64,7 @@ export default {
 
     methods: {
         reloadList () {
-            var self = this
+            const self = this
 
             self.loading = true
             self.selectedPurchase = ''
@@ -122,7 +122,7 @@ export default {
 
         PurchaseItem_Click (event) {
             if (typeof event.purchase === 'object') {
-                var key = event.purchase._key
+                const key = event.purchase._key
                 this.selectedPurchase = this.selectedPurchase !== key
                     ? key
                     : null
@@ -130,7 +130,7 @@ export default {
         },
 
         removePurchase (purchase) {
-            var self = this
+            const self = this
 
             self.purchasesList = self.purchasesList.filter(p => purchase._key !== p._key)
             self.selectedPurchase = ''

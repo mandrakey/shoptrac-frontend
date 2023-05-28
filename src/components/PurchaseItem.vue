@@ -27,8 +27,8 @@
         </div>
         <div class="w3-col l2 m2 w3-right-align w3-small padding-top-5">
             <div class="w3-center">
-                <img class="st-shopper-avatar-16" v-if="shopperImage !== ''" :src="`data:image/png;base64,${shopperImage}`" :alt="t('shopper')">
-                <img class="st-shopper-avatar-16" v-else src="@/assets/img/image-solid.svg" :alt="t('shopper')">
+                <img class="st-shopper-avatar-16" v-if="shopperImage !== ''" :src="`data:image/png;base64,${shopperImage}`" :alt="$t('shopper')">
+                <img class="st-shopper-avatar-16" v-else src="@/assets/img/image-solid.svg" :alt="$t('shopper')">
                 <br>
                 {{ shopperName }}
             </div>
@@ -75,21 +75,21 @@ export default {
 
     computed: {
         venueName () {
-            var venueId = this.purchase.venue
+            const venueId = this.purchase.venue
             return typeof store.state.venues[venueId] !== 'undefined'
                 ? store.state.venues[venueId].name
                 : 'N/A'
         },
 
         venueImage () {
-            var venueId = this.purchase.venue
+            const venueId = this.purchase.venue
             return typeof store.state.venues[venueId] !== 'undefined'
                 ? `data:image/png;base64,${store.state.venues[venueId].image}`
                 : ''
         },
 
         categoryName () {
-            var catId = this.purchase.category
+            const catId = this.purchase.category
             return typeof store.state.categories[catId] !== 'undefined'
                 ? store.state.categories[catId].name
                 : 'N/A'

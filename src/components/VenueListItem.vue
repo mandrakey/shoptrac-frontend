@@ -12,7 +12,7 @@
     <div :class="['w3-row', 'venue-container', { 'w3-theme-l1': selected }]"
             @click="$emit('click', { venue: venue })">
         <div :class="['w3-col', 'l2 m2']">
-            <img v-if="venue.image !== ''" :src="`data:image/png;base64,${venue.image}`" class="venue-image" :alt="t('venue')">
+            <img v-if="venue.image !== ''" :src="`data:image/png;base64,${venue.image}`" class="venue-image" :alt="$t('venue')">
             <span v-else>NOIMG</span>
         </div>
         <div :class="['w3-col', selected ? 'l8 m8' : 'l10 m10', 'venue-name']">

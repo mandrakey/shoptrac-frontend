@@ -123,8 +123,6 @@ export default {
 
   methods: {
     loadVenues () {
-      // var self = this
-
       Api.getVenues()
         .then(resp => {
           if (typeof resp.status !== 'number' || resp.status !== 200) {
@@ -134,9 +132,9 @@ export default {
           }
 
           try {
-            var venues = {}
+            const venues = {}
             resp.data.forEach(e => {
-              var v = Venue.fromObject(e)
+              const v = Venue.fromObject(e)
               venues[v._key] = v
             })
 
@@ -154,8 +152,6 @@ export default {
     },
 
     loadCategories () {
-      // var self = this
-
       Api.getCategories()
         .then(resp => {
           if (typeof resp.status !== 'number' || resp.status !== 200) {
@@ -165,9 +161,9 @@ export default {
           }
 
           try {
-            var categories = {}
+            const categories = {}
             resp.data.forEach(e => {
-              var c = Category.fromObject(e)
+              const c = Category.fromObject(e)
               categories[c._key] = c
             })
 
@@ -210,7 +206,7 @@ export default {
     },
 
     loadPurchaseTimestamps () {
-      var self = this
+      const self = this
 
       Api.getPurchaseTimestamps()
         .then(resp => {

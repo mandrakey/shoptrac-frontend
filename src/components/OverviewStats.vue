@@ -106,7 +106,7 @@ export default {
 
     methods: {
         reload () {
-            var self = this
+            const self = this
 
             Api.getOverviewStatistics(self.month, self.year)
                 .then(resp => {

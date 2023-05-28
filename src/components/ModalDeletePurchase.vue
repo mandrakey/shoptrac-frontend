@@ -103,7 +103,7 @@ export default {
         },
 
         delete_Click () {
-            var self = this
+            const self = this
 
             self.action = self.$i18n.t('deletingPurchase')
             Api.deletePurchase(self.purchase)

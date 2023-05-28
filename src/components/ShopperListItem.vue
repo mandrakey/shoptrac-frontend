@@ -5,8 +5,8 @@
   <div :class="['w3-row', 'shopper-container', { 'w3-theme-l1': selected }]"
       @click="$emit('click', { shopper: shopper })">
     <div :class="['w3-col', 'l2 m2']">
-      <img v-if="shopper.image !== ''" :src="`data:image/png;base64,${shopper.image}`" class="shopper-image" :alt="t('shopper')">
-      <img v-else src="@/assets/img/image-solid.svg" class="shopper-image" :alt="t('shopper')">
+      <img v-if="shopper.image !== ''" :src="`data:image/png;base64,${shopper.image}`" class="shopper-image" :alt="$t('shopper')">
+      <img v-else src="@/assets/img/image-solid.svg" class="shopper-image" :alt="$t('shopper')">
     </div>
     <div :class="['w3-col', selected ? 'l8 m8' : 'l10 m10', 'shopper-name']">
       {{ shopper.name }}

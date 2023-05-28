@@ -113,7 +113,7 @@ export default {
         },
 
         doUpdateCategory () {
-            var self = this
+            const self = this
 
             if (typeof self.category._key !== 'string' || self.category._key === '' 
                     || self.category.name === '') {
@@ -153,7 +153,7 @@ export default {
         },
 
         doAddCategory () {
-            var self = this
+            const self = this
 
             if (self.category.name === '') {
                 window.toast({
@@ -174,7 +174,7 @@ export default {
                         return
                     }
 
-                    var savedCategory = null
+                    let savedCategory = null
                     try {
                         savedCategory = Category.fromObject(resp.data)
                     } catch (err) {

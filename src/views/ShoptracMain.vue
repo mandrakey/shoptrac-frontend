@@ -162,7 +162,7 @@ export default {
 
     methods: {
         setCurrentMonth () {
-            var d = new Date()
+            const d = new Date()
             this.$refs['month-selector'].setDate(
                 d.getMonth() + 1,
                 d.getFullYear()
@@ -197,16 +197,16 @@ export default {
         },
 
         createNewPurchase (event) {
-            var self = this
+            const self = this
 
-            var p = new Purchase()
+            let p = new Purchase()
             p.category = self.currentCategory
             p.venue = self.currentVenue
             p.shopper = self.currentShopper
             p.date = self.newPurchaseDate
             p.sum = event.sum
 
-            var d = moment(self.newPurchaseDate)
+            const d = moment(self.newPurchaseDate)
             p.month = d.month() + 1
             p.year = d.year()
             
@@ -292,12 +292,12 @@ export default {
         },
 
         resetForm () {
-            var self = this
+            const self = this
 
             self.setCurrentMonth()
             self.$refs['keypad'].setValue('0')
             
-            var keys = Object.keys(store.state.venues)
+            let keys = Object.keys(store.state.venues)
             self.currentVenue = store.state.venues[keys[0]]._key
             self.$refs['venue-select'].selectByKey(self.currentVenue)
 
@@ -319,8 +319,8 @@ export default {
         },
 
         autoreload () {
-            var month = this.currentMonth
-            var year = this.currentYear
+            const month = this.currentMonth
+            const year = this.currentYear
 
             // Reset form
             this.resetForm()

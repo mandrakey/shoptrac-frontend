@@ -7,7 +7,7 @@ export default class Venue {
 
   static fromObject (o) {
     // Check necessary data
-    var problems = []
+    const problems = []
     if (typeof o._key !== 'string' || o._key === '') {
       problems.push('key')
     }
@@ -20,7 +20,7 @@ export default class Venue {
     }
 
     // Copy possible values
-    var res = new Venue()
+    const res = new Venue()
     Object.keys(o).forEach(k => {
       if (typeof o[k] !== 'undefined') {
         res[k] = o[k]

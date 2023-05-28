@@ -45,7 +45,7 @@
                     </div>
                     <div class="w3-col w3-twothird">
                         <input type="file" class="file-input" ref="FileInput" @change="fileInput_Change">
-                        <img :src="`data:image/png;base64,${venue.image}`" class="w3-border venue-image" :alt="t('venue')">
+                        <img :src="`data:image/png;base64,${venue.image}`" class="w3-border venue-image" :alt="$t('venue')">
                         <button class="w3-button st-button-theme st-button-theme-hover w3-small"
                                 @click="selectImage_Click()">
                             {{ $t('selectImage') }}
@@ -124,9 +124,9 @@ export default {
         },
 
         fileInput_Change (event) {
-            var self = this
+            const self = this
 
-            var file = event.target.files[0]
+            const file = event.target.files[0]
             if (typeof file === 'undefined' || file === null) {
                 return
             }
@@ -161,7 +161,7 @@ export default {
         },
 
         doUpdateVenue () {
-            var self = this
+            const self = this
 
             if (typeof self.venue._key !== 'string' || self.venue._key === ''
                     || self.venue.name === '') {
@@ -201,7 +201,7 @@ export default {
         },
 
         doAddVenue () {
-            var self = this
+            const self = this
 
             if (self.venue.name === '') {
                 window.toast({

@@ -49,17 +49,17 @@ export default class Api {
   }
 
   static getPurchaseTimestamps () {
-    var d = new Date()
-    var year = d.getFullYear()
-    var month = d.getMonth() + 1
+    const d = new Date()
+    const year = d.getFullYear()
+    const month = d.getMonth() + 1
 
-    var res = []
+    const res = []
 
     // Add the past 6 months
-    for (var i = 6; i > 0; --i) {
-      var m = month - i
+    for (let i = 6; i > 0; --i) {
+      let m = month - i
       
-      var y = year
+      let y = year
       if (m < 1) {
         y -= 1
         m = 12 + m
@@ -68,10 +68,10 @@ export default class Api {
     }
 
     // Add the next 6 months
-    for (i = 0; i < 7; ++i) {
-      m = month + i
+    for (let i = 0; i < 7; ++i) {
+      let m = month + i
 
-      y = year
+      let y = year
       if (m > 12) {
         y += 1
         m = m - 12
@@ -229,7 +229,7 @@ export default class Api {
 
     return this.fetch({
       status: 204
-    }, 800)
+    }, time)
   }
 
   static deleteUsers (key) {

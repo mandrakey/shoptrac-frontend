@@ -58,7 +58,7 @@ export default {
     },
 
     mounted () {
-        var self = this
+        const self = this
         self.preselect()
     },
 

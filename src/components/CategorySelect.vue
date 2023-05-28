@@ -90,7 +90,7 @@ export default {
     },
 
     mounted () {
-        var self = this
+        const self = this
 
         EventBus.$on('categories-loaded', self.preselect)
         self.preselect()
@@ -129,7 +129,7 @@ export default {
         },
 
         preselect () {
-            var keys = Object.keys(this.categories)
+            const keys = Object.keys(this.categories)
             if (this.allowEmpty) {
                 this.selectByKey('-1')
             } else if (keys.length > 0) {

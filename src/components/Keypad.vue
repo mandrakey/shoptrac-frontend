@@ -185,8 +185,8 @@ export default {
     },
 
     add: function (c) {
-      var nr = parseInt(c)
-      var value = this.theValue
+      const nr = parseInt(c)
+      let value = this.theValue
       if (!isNaN(nr)) {
         value += nr
       } else {
@@ -201,18 +201,18 @@ export default {
       }
 
       // Force 2 decimals if more
-      var tmp = value.split('.')
+      const tmp = value.split('.')
       if (tmp.length === 2 && tmp[1].length > 2) {
-        value = tmp[0] + '.' + tmp[1].substr(0, 2)
+        value = tmp[0] + '.' + tmp[1].substring(0, 2)
       }
 
       this.setValue(value)
     },
 
     back: function () {
-      var value = this.theValue
+      const value = this.theValue
       if (value !== '0') {
-        this.setValue(value.substr(0, value.length - 1))
+        this.setValue(value.substring(0, value.length - 1))
       }
 
       if (value === '') {

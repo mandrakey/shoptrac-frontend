@@ -3,7 +3,7 @@
 <template>
     <div :class="['w3-modal', { 'w3-show': action !== '' }]">
         <div class="w3-modal-content w3-card w3-border w3-round">
-            <img class="spinner" src="@/assets/img/spinner-48-primary.gif" :alt="t('loading')">
+            <img class="spinner" src="@/assets/img/spinner-48-primary.gif" :alt="$t('loading')">
             <span class="action">{{ action }}</span>
         </div>
     </div>
