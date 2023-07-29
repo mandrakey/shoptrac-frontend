@@ -175,14 +175,23 @@ export default {
             Api.updatePurchase(this.purchase)
                 .then(resp => {
                     switch (resp.status) {
-                        case 200:
+                        case 200: {
                             window.toast({
                                 color: 'green',
                                 text: self.$i18n.t('purchaseHasBeenUpdated')
                             })
-                            self.$emit('save', { purchase: self.purchase })
+
+                            let p = null
+                            try {
+                                p = Purchase.fromObject(resp.data)
+                            } catch {
+                                p = self.purchase
+                            }
+
+                            self.$emit('save', { purchase: p })
                             self.showDialog = false
                             break
+                        }
                         
                         case 500:
                             window.toast({
