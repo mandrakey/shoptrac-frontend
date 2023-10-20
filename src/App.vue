@@ -102,6 +102,9 @@ export default {
   created () {
     window.addEventListener('keyup', this.windowOnKeyUpHandler)
     EventBus.$on('session-change', this.recalculateIsLoggedIn)
+  },
+
+  mounted () {
     this.recalculateIsLoggedIn()
   },
 
@@ -276,14 +279,24 @@ export default {
         })
     },
 
-    recalculateIsLoggedIn () {
+    async recalculateIsLoggedIn () {
       this.isLoggedIn = Session.isLoggedIn()
       if (this.isLoggedIn) {
-        this.loadUser()
-        this.loadVenues()
-        this.loadCategories()
-        this.loadShoppers()
-        this.loadPurchaseTimestamps()
+        try {
+          await Api.getAuthIsLoggedIn()
+          this.loadUser()
+          this.loadVenues()
+          this.loadCategories()
+          this.loadShoppers()
+          this.loadPurchaseTimestamps()
+        } catch (ex) {
+          this.isLoggedIn = false
+          this.isAdmin = false
+          Session.setSessionId(null)
+          Session.setRememberMeToken(null)
+          this.$router.push('/login')
+          return
+        }
       } else {
         if (this.$router.path !== '/login') {
           this.$router.push('/login')
