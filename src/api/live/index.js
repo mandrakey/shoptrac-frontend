@@ -176,6 +176,13 @@ export default class Api {
     })
   }
 
+  static getAuthIsLoggedIn() {
+    return this.execute({
+      method: 'get',
+      url: `${API_BASE}/auth/isloggedin`
+    })
+  }
+
   static getProfile () {
     return this.execute({
       method: 'get',
