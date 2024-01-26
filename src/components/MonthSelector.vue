@@ -2,22 +2,14 @@
 
 <template>
     <div class="w3-row w3-padding">
+        <modal-filterable-select :choices="timestampChoices" :visible="showMonthSelect" @blur="monthSelector_Blur()" @selected="changeTimestamp($event)" />
         <div class="w3-col w3-third w3-right-align">
             <button class="w3-button w3-theme-action" @click="changeMonth(-1)">&lt;&lt;</button>
         </div>
         <div class="w3-col w3-third w3-center">
-            <div class="w3-dropdown-click w3-block">
-                <button @click="toggleMonthSelectDropdown" class="w3-button w3-theme-action w3-block button month-selector">
-                    {{ text }}
-                </button>
-            </div>
-            <div :class="['w3-dropdown-content', 'w3-bar-block', 'w3-border', { 'w3-show': showMonthSelectDropdown }]">
-                <span v-for="(t, idx) in timestamps" :key="idx">
-                    <a class="w3-button w3-bar-item" @click="changeTimestamp(t)">
-                        {{ getTimestampText(t.month, t.year) }}
-                    </a>
-                </span>
-            </div>
+            <button class="w3-button w3-theme-action w3-block button month-selector" @click="btnShowMonthSelect_Clicked()">
+                {{ text }}
+            </button>
         </div>
         <div class="w3-col w3-third">
             <button class="w3-button w3-theme-action" @click="changeMonth(1)">&gt;&gt;</button>
@@ -28,12 +20,18 @@
 <script>
 import store from '@/store'
 
+import ModalFilterableSelect from '@/components/ModalFilterableSelect.vue'
+
 export default {
+    components: {
+        ModalFilterableSelect
+    },
+
     data () {
         return {
             month: 1,
             year: 2019,
-            showMonthSelectDropdown: false
+            showMonthSelect: false
         }
     },
 
@@ -44,6 +42,22 @@ export default {
 
         timestamps () {
             return store.state.purchaseTimestamps
+        },
+
+        timestampChoices() {
+            const self = this
+            return self.timestamps.sort((a, b) => {
+                if (a.year === b.year) {
+                    if (a.month === b.month) {
+                        return 0
+                    }
+                    return a.month < b.month ? -1 : 1
+                }
+                return a.year < b.year ? -1 : 1
+            }).map(t => {
+                const text = self.getTimestampText(t.month, t.year)
+                return { key: text, value: t, text: text }
+            })
         }
     },
 
@@ -85,11 +99,16 @@ export default {
             return `${this.$i18n.t('months.' + (month - 1))} ${year}`
         },
 
-        toggleMonthSelectDropdown () {
-            this.showMonthSelectDropdown = !this.showMonthSelectDropdown
+        btnShowMonthSelect_Clicked() {
+            this.showMonthSelect = true
         },
 
-        changeTimestamp (t) {
+        monthSelector_Blur() {
+            this.showMonthSelect = false
+        },
+
+        changeTimestamp (choice) {
+            const t = choice.value
             this.setDate(t.month, t.year)
             this.showMonthSelectDropdown = false
         }
