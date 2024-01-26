@@ -26,7 +26,7 @@
             <div class="w3-row margin-top-5">
                 <div class="w3-third st-label">{{ $t('venue') }}:</div>
                 <div class="w3-twothird">
-                    <venue-select ref="venue-select" :items="[]" @selected="changeCurrentVenue($event)"></venue-select>
+                    <venue-select ref="venue-select" @selected="changeCurrentVenue($event)"></venue-select>
                 </div>
             </div>
 

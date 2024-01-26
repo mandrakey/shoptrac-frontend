@@ -65,6 +65,16 @@
     outline: none;
 }
 
+.st-select-button {
+    background: #003837;
+    color: #fff;
+    padding: 5px;
+    cursor: pointer;
+}
+.st-select-button:hover {
+    background: #279191 !important;
+}
+
 .w3-input:focus {
     outline: none;
 }
