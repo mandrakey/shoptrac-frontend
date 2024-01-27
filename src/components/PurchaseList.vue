@@ -68,7 +68,6 @@ export default {
 
             self.loading = true
             self.selectedPurchase = ''
-            Console.debug(`Reloading: ${self.year}/${self.month}`)
             Api.getPurchases(self.month, self.year)
                 .then(resp => {
                     if (typeof resp.status !== 'number') {
