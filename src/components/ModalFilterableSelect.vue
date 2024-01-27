@@ -10,7 +10,7 @@
 <template>
     <div :class="['w3-modal', { 'w3-show': visible }]" @click="outside_Clicked()">
         <div class="w3-modal-content w3-card" @click="preventOutsideClick($event)">
-            <input class="w3-input txtFilter" :placeholder="$t('txtFilter__placeholder')" v-model="filter" />
+            <input class="w3-input txtFilter" :placeholder="$t('txtFilter__placeholder')" v-model="filter" @keyup.esc="txtFilter_Escape()" />
             <div class="items-container">
                 <div v-for="item in filteredChoices"
                         :key="typeof item.key === 'undefined' ? item.value : item.key"
@@ -80,8 +80,7 @@ export default {
 
     data() {
         return {
-            filter: '',
-            selected: null
+            filter: ''
         }
     },
 
@@ -105,12 +104,17 @@ export default {
 
         outside_Clicked() {
             if (!this.disableBlur) {
+                this.filter = ''
                 this.$emit('blur')
             }
         },
 
         preventOutsideClick(event) {
             event.stopPropagation()
+        },
+
+        txtFilter_Escape() {
+            this.outside_Clicked()
         }
     }
 }
