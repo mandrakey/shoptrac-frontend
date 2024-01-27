@@ -12,7 +12,7 @@
     <div :class="['w3-row', 'purchase-container', { 'w3-theme-l1': selected }]"
         @click="$emit('click', { purchase: purchase })">
         <div class="w3-col l2 m2">
-            <img v-if="venueImage !== ''" :src="venueImage" :alt="`${venueName} logo`">
+            <img v-if="venueImage !== ''" :src="venueImage" :alt="`${venueName} logo`" class="purchase-logo">
             <span v-else>&nbsp;</span> <!-- put default image here -->
         </div>
         <div :class="['w3-col', selected ? 'l6 m5' : 'l8 m9']">
@@ -49,6 +49,10 @@
 <style scoped>
 .padding-top-5 {
     padding-top: 5px;
+}
+.purchase-logo {
+    width: 48px;
+    height: 48px;
 }
 </style>
 
