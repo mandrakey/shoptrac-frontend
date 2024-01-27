@@ -87,10 +87,29 @@ export default {
         },
 
         preselect() {
-            const venues = Object.values(this.venues)
-            if (venues.length > 0) {
-                this.selected = venues[0]
-                this.emitSelected()
+            if (this.value < -1) {
+                throw new Error('venue default value must be -1 or greater.')
+            }
+
+            const keys = Object.keys(this.venues)
+            let v = this.value
+            if ((this.value < 0 && !this.allowEmpty) || !keys.includes(v)) {
+                v = keys[0]
+            }
+            this.selectByKey(v)
+        },
+
+        selectByKey(key) {
+            if (typeof this.venues[key] !== 'object') {
+                return
+            }
+            this.selected = this.venues[key]
+            this.emitSelected()
+        },
+
+        emitSelected() {
+            if (typeof this.selected !== 'undefined') {
+                this.$emit('selected', { venue: this.selected._key })
             }
         },
 
@@ -106,19 +125,7 @@ export default {
             if (typeof event !== 'object' || typeof event.choice !== 'object') {
                 return
             }
-
-            for (const v of Object.values(this.venues)) {
-                if (v._key === event.choice.value) {
-                    this.selected = v
-                    this.emitSelected()
-                }
-            }
-        },
-
-        emitSelected() {
-            if (typeof this.selected !== 'undefined') {
-                this.$emit('selected', { venue: this.selected._key })
-            }
+            this.selectByKey(event.choice.value)
         }
     }
 }
