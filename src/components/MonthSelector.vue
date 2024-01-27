@@ -107,8 +107,12 @@ export default {
             this.showMonthSelect = false
         },
 
-        changeTimestamp (choice) {
-            const t = choice.value
+        changeTimestamp(event) {
+            if (typeof event !== 'object' || typeof event.choice !== 'object') {
+                return
+            }
+            
+            const t = event.choice.value
             this.setDate(t.month, t.year)
             this.showMonthSelectDropdown = false
         }

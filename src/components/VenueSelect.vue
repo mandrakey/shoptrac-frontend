@@ -102,12 +102,13 @@ export default {
             this.showChoices = false
         },
 
-        choices_Selected(choice) {
-            if (typeof choice !== 'object') {
+        choices_Selected(event) {
+            if (typeof event !== 'object' || typeof event.choice !== 'object') {
                 return
             }
+
             for (const v of Object.values(this.venues)) {
-                if (v._key === choice.value) {
+                if (v._key === event.choice.value) {
                     this.selected = v
                     this.emitSelected()
                 }

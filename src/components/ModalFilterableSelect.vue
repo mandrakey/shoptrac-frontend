@@ -99,7 +99,7 @@ export default {
 
     methods: {
         onChoiceClick(choice) {
-            this.$emit('selected', choice)
+            this.$emit('selected', { choice: choice })
             this.$emit('blur')
         },
 
