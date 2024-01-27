@@ -65,7 +65,11 @@
     outline: none;
 }
 
+.st-select-button-container {
+    min-height: 42px;
+}
 .st-select-button {
+    min-height: 42px;
     background: #003837;
     color: #fff;
     padding: 5px;
