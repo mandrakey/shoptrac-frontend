@@ -4,7 +4,7 @@
     <div class="w3-block st-select-button-container">
         <modal-filterable-select :choices="categoryChoices" :visible="showChoices" @blur="choices_Blur()" @selected="choices_Selected($event)" />
         <div class="w3-cell-row st-select-button" @click="btnChoices_Click()">
-            <div class="w3-cell w3-cell-middle">{{ selected.name }}</div>
+            <div class="w3-cell w3-cell-middle text">{{ selected.name }}</div>
         </div>
     </div>
 </template>
@@ -14,7 +14,11 @@
     width: 32px;
 }
 .logo > img {
-    padding-right: 5px;
+    width: 32px;
+    height: 32px;
+}
+.text {
+    padding-left: 10px;
 }
 </style>
 

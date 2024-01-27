@@ -7,7 +7,7 @@
             <div v-if="(typeof selected.image !== 'undefined' && selected.image !== '')" class="w3-cell w3-cell-middle logo">
                 <img :src="`data:image/png;base64,${selected.image}`" width="32" height="32" :alt="`${selected.name} logo`">
             </div>
-            <div class="w3-cell w3-cell-middle">{{ selected.name }}</div>
+            <div class="w3-cell w3-cell-middle text">{{ selected.name }}</div>
         </div>
     </div>
 </template>
@@ -17,7 +17,11 @@
     width: 32px;
 }
 .logo > img {
-    padding-right: 5px;
+    width: 32px;
+    height: 32px;
+}
+.text {
+    padding-left: 10px;
 }
 </style>
 
