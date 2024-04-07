@@ -1,3 +1,8 @@
+/*
+SPDX-FileCopyrightText: Maurice Bleuel <mandrakey@litir.de>
+SPDX-License-Identifier: BSD-3-Clause
+*/
+
 import Console from '@/utils/Console'
 
 import purchasesList from './data/purchasesList'

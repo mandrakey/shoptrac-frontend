@@ -1,0 +1,31 @@
+= Shoptrac
+Maurice Bleuel <mandrakey@litir.de>
+Version 2024-04-07.1
+
+Shoptrac is a simple web application designed to track my costs of living by registering the total price spent whenever I went to the grocery store, or any other store I want to keep tabs on.
+
+It consists of a backend application (https://github.com/mandrakey/shoptrac-backend) and a corresponding Vue.js frontend (this repository).
+
+The fronted application is built using the following technology:
+
+* Vue.js 2
+* Vue-Cli for building
+
+I have not yet gotten around to update or rewrite it to use Vue.js 3 and Vite, but that is still something on my list for some day.
+
+== Install
+The software is not officially provided with any package managers as far as I know, and there are no plans for me to do this. If you want to try Shoptrac for yourself, you will have to build the applications yourself.
+
+To build the backend application, download a copy of the repository. After, you go `npm install` to download dependencies, after which you cann either `npm run serve` the application on the development server, or `npm run build` it to package a distributable to put on a server.
+
+To work, you either run the application in development mode (which uses a mock API with pre-set values, see `api/mock/data`), or in live mode, which required a backend service running. To choose between the two, you use .env-files; dist files with stubs are provided as `.env.development.dist` and `.env.production.dist`. Basically, you can configure two calues here:
+
+VUE_APP_API_CLIENT:: This value determines whether to use the mock API or a live one. The corresponding values are `mock` and `live`.
+
+VUE_APP_API_URL:: If using a real API, this contains the base url to reach it, without trailing slash. Something like `https://my.domain.com/shoptrac-api`.
+
+== Maintainers
+As this is a private project, created mostly for my personal benefit (and for fun, being able to use something else than Java and PostgreSQL for a change), it is really only maintained when I feel I need to change it, and when my spare time allows it. Feel free to create tickets, but I don't give any guarantee I'll even look at them in a timely fashion.
+
+== License
+The source code is licensed under BSD-3-Clause license, as can be found under link:LICENSES/BSD-3-Clause.txt[].

@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: Maurice Bleuel <mandrakey@litir.de>
+SPDX-License-Identifier: BSD-3-Clause
+-->
+
 <template>
   <div>
     <input class="w3-block" type="text" :value="theValue" @keyup="keyPress" ref="sum">

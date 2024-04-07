@@ -1,3 +1,8 @@
+/*
+SPDX-FileCopyrightText: Maurice Bleuel <mandrakey@litir.de>
+SPDX-License-Identifier: BSD-3-Clause
+*/
+
 export default class Console {
   static LEVEL_LOG = 2
   static LEVEL_WARN = 1

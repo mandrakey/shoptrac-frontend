@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: Maurice Bleuel <mandrakey@litir.de>
+SPDX-License-Identifier: BSD-3-Clause
+-->
+
 <i18n src="@/lang/common.json"></i18n>
 <i18n src="@/lang/settings.json"></i18n>
 

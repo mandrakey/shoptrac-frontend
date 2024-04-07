@@ -1,3 +1,8 @@
+/*
+SPDX-FileCopyrightText: Maurice Bleuel <mandrakey@litir.de>
+SPDX-License-Identifier: BSD-3-Clause
+*/
+
 export default class Session {
   static #sessionIdKey = 'sessionId'
   static #rememberMeTokenKey = 'rememberMe'
